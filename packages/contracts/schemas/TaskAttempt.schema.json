@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:TaskAttempt:1.0",
+  "title": "TaskAttempt",
+  "type": "object",
+  "properties": {
+    "attempt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "fencing_token": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "worker_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cancel_confirmed": {
+      "type": "boolean"
+    },
+    "result_artifact_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "attempt",
+    "fencing_token",
+    "worker_id",
+    "state",
+    "started_at",
+    "finished_at",
+    "cancel_confirmed",
+    "result_artifact_id"
+  ],
+  "additionalProperties": false
+}

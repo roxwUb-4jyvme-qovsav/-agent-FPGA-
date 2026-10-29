@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DeviceStatus:1.0",
+  "title": "DeviceStatus",
+  "type": "object",
+  "properties": {
+    "state": {
+      "type": "string",
+      "enum": [
+        "IDLE",
+        "ARMED",
+        "CAPTURING",
+        "DONE",
+        "ABORTED",
+        "ERROR"
+      ]
+    },
+    "channels": {
+      "type": "integer",
+      "enum": [
+        8,
+        16
+      ]
+    },
+    "trigger_mode": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "overflow": {
+      "type": "boolean"
+    },
+    "capture_id": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "sample_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4096
+    },
+    "error_code": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    }
+  },
+  "required": [
+    "state",
+    "channels",
+    "trigger_mode",
+    "overflow",
+    "capture_id",
+    "sample_count",
+    "error_code"
+  ],
+  "additionalProperties": false
+}

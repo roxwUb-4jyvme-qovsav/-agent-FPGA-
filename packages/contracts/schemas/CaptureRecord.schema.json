@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:CaptureRecord:1.0",
+  "title": "CaptureRecord",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "capture_id": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4294967295
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "rtl_simulation",
+        "replay",
+        "mock",
+        "hardware"
+      ]
+    },
+    "channels": {
+      "type": "integer",
+      "enum": [
+        8,
+        16
+      ]
+    },
+    "sample_bytes": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "clock_hz": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "divider": {
+      "type": "integer",
+      "enum": [
+        10,
+        100
+      ]
+    },
+    "sample_count": {
+      "type": "integer",
+      "minimum": 16,
+      "maximum": 4096
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "samples": {
+      "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+    },
+    "metadata": {
+      "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "session_id",
+    "project_id",
+    "revision_id",
+    "capture_id",
+    "mode",
+    "channels",
+    "sample_bytes",
+    "clock_hz",
+    "divider",
+    "sample_count",
+    "contract_sha256",
+    "samples",
+    "metadata",
+    "captured_at"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DeviceCapabilities:1.0",
+  "title": "DeviceCapabilities",
+  "type": "object",
+  "properties": {
+    "channels": {
+      "type": "integer",
+      "enum": [
+        8,
+        16
+      ]
+    },
+    "sample_bytes": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "clock_hz": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_depth": {
+      "type": "integer",
+      "minimum": 16,
+      "maximum": 4096
+    },
+    "max_payload_bytes": {
+      "const": 1024
+    },
+    "feature_bits": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "channels",
+    "sample_bytes",
+    "clock_hz",
+    "max_depth",
+    "max_payload_bytes",
+    "feature_bits"
+  ],
+  "additionalProperties": false
+}

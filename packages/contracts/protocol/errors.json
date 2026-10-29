@@ -1,0 +1,12 @@
+{
+  "1": "BAD_LENGTH",
+  "2": "UNSUPPORTED_VERSION",
+  "3": "UNKNOWN_TYPE",
+  "4": "INVALID_CONFIG",
+  "5": "STALE_CAPTURE",
+  "6": "BUSY",
+  "7": "NOT_READY",
+  "8": "RANGE",
+  "9": "SEQUENCE_CONFLICT",
+  "10": "CAPTURE_ABORTED"
+}

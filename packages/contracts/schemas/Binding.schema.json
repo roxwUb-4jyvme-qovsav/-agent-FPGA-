@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:Binding:1.0",
+  "title": "Binding",
+  "type": "object",
+  "properties": {
+    "agent_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_profile_version_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "skill_version_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "extension_version_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "collection_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "agent_role",
+    "model_profile_version_id",
+    "skill_version_ids",
+    "extension_version_ids",
+    "collection_ids",
+    "allowed_tools"
+  ],
+  "additionalProperties": false
+}

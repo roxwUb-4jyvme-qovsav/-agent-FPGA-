@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:ModelResponse:1.0",
+  "title": "ModelResponse",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "incomplete",
+        "refused",
+        "failed",
+        "cancelled",
+        "unknown"
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "requested_model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actual_model": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "provider_request_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "input_tokens": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "output_tokens": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "usage_complete": {
+      "type": "boolean"
+    },
+    "preflight_count_kind": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "estimated",
+        "unavailable"
+      ]
+    },
+    "latency_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cost_state": {
+      "type": "string",
+      "enum": [
+        "actual",
+        "estimated",
+        "unknown"
+      ]
+    },
+    "actual_cost_cny": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "text",
+    "requested_model",
+    "actual_model",
+    "provider_request_id",
+    "input_tokens",
+    "output_tokens",
+    "usage_complete",
+    "preflight_count_kind",
+    "latency_ms",
+    "error_code",
+    "cost_state",
+    "actual_cost_cny"
+  ],
+  "additionalProperties": false
+}

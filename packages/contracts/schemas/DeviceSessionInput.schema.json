@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DeviceSessionInput:1.0",
+  "title": "DeviceSessionInput",
+  "type": "object",
+  "properties": {
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "rtl_simulation",
+        "replay",
+        "mock",
+        "hardware"
+      ]
+    },
+    "capture_artifact_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "board_profile_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "revision_id",
+    "mode",
+    "capture_artifact_id",
+    "board_profile_id"
+  ],
+  "additionalProperties": false
+}

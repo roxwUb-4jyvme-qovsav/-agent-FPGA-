@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:SearchResponse:1.0",
+  "title": "SearchResponse",
+  "type": "object",
+  "properties": {
+    "hits": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:Evidence:1.0"
+      }
+    },
+    "partial": {
+      "type": "boolean"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "hits",
+    "partial",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

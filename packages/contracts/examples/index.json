@@ -1,0 +1,14 @@
+{
+  "notice": "Unapproved specification fixtures, not runtime evidence.",
+  "schema_map": {
+    "requirement.json": "RequirementSpec",
+    "requirement-16ch.json": "RequirementSpec",
+    "acceptance.json": "AcceptanceSpec",
+    "acceptance-16ch.json": "AcceptanceSpec",
+    "system-contract-8ch.json": "SystemContract",
+    "system-contract-16ch.json": "SystemContract",
+    "board-virtual.json": "BoardProfile",
+    "plugin.manifest.json": "PluginManifest",
+    "quote-offer.json": "QuoteOffer"
+  }
+}

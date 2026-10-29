@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DeviceCommand:1.0",
+  "title": "DeviceCommand",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "get_caps",
+        "set_config",
+        "arm",
+        "read_capture",
+        "status",
+        "abort"
+      ]
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    },
+    "payload_hex": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{2})*$"
+    }
+  },
+  "required": [
+    "action",
+    "sequence",
+    "payload_hex"
+  ],
+  "additionalProperties": false
+}

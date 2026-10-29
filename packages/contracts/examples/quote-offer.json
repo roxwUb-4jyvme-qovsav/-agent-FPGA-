@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "55555555-5555-4555-8555-555555555555",
+  "supplier": "TEST DOMESTIC",
+  "country_class": "domestic",
+  "manufacturer": "TEST",
+  "mpn": "TEST-PART",
+  "sku": null,
+  "package": "TEST",
+  "condition": "new",
+  "currency": "CNY",
+  "price_breaks": [
+    {
+      "min_qty": 1,
+      "unit_price": "2"
+    },
+    {
+      "min_qty": 40,
+      "unit_price": "1.5"
+    }
+  ],
+  "moq": 10,
+  "order_multiple": 10,
+  "stock_qty": 1000,
+  "lead_days": 3,
+  "tax_included": true,
+  "tax_rate": "0.13",
+  "shipping": "10",
+  "observed_at": "2026-10-29T00:00:00Z",
+  "expires_at": "2026-10-30T00:00:00Z",
+  "source_uri": "fixture://rounding",
+  "evidence_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "data_mode": "fixture",
+  "reuse_policy": "not a market quote"
+}

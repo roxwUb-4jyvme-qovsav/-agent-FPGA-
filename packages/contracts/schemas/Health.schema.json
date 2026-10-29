@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:Health:1.0",
+  "title": "Health",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "degraded"
+      ]
+    },
+    "api_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "database_ready": {
+      "type": "boolean"
+    },
+    "scheduler_ready": {
+      "type": "boolean"
+    },
+    "eda_ready": {
+      "type": "boolean"
+    },
+    "cad_ready": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "status",
+    "api_version",
+    "database_ready",
+    "scheduler_ready",
+    "eda_ready",
+    "cad_ready"
+  ],
+  "additionalProperties": false
+}

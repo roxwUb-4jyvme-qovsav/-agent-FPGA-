@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:CaptureChunk:1.0",
+  "title": "CaptureChunk",
+  "type": "object",
+  "properties": {
+    "capture_id": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4294967295
+    },
+    "offset_samples": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4095
+    },
+    "count_samples": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1012
+    },
+    "sample_bytes": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "samples_hex": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{2})+$"
+    }
+  },
+  "required": [
+    "capture_id",
+    "offset_samples",
+    "count_samples",
+    "sample_bytes",
+    "samples_hex"
+  ],
+  "additionalProperties": false
+}

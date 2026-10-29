@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:TaskEnvelope:1.0",
+  "title": "TaskEnvelope",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "fencing_token": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "agent_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+      }
+    },
+    "output_schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_profile_version_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "extension_version_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "skill_version_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "workspace_relpath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[:\\\\]).+$"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "max_cost_cny": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+    },
+    "approval_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "run_id",
+    "project_id",
+    "revision_id",
+    "attempt",
+    "fencing_token",
+    "agent_role",
+    "goal",
+    "input_artifacts",
+    "output_schema",
+    "model_profile_version_id",
+    "extension_version_ids",
+    "skill_version_ids",
+    "allowed_tools",
+    "workspace_relpath",
+    "deadline",
+    "max_cost_cny",
+    "approval_ids",
+    "idempotency_key"
+  ],
+  "additionalProperties": false
+}

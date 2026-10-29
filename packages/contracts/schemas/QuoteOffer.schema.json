@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:QuoteOffer:1.0",
+  "title": "QuoteOffer",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "supplier": {
+      "type": "string",
+      "minLength": 1
+    },
+    "country_class": {
+      "type": "string",
+      "enum": [
+        "domestic",
+        "overseas"
+      ]
+    },
+    "manufacturer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mpn": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sku": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "package": {
+      "type": "string",
+      "minLength": 1
+    },
+    "condition": {
+      "type": "string",
+      "enum": [
+        "new",
+        "used",
+        "unknown"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "CNY",
+        "USD",
+        "EUR",
+        "HKD"
+      ]
+    },
+    "price_breaks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "min_qty": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "unit_price": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+          }
+        },
+        "required": [
+          "min_qty",
+          "unit_price"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "moq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "order_multiple": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stock_qty": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lead_days": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tax_included": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tax_rate": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "shipping": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_uri": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "data_mode": {
+      "type": "string",
+      "enum": [
+        "live",
+        "authorized_import",
+        "fixture"
+      ]
+    },
+    "reuse_policy": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "supplier",
+    "country_class",
+    "manufacturer",
+    "mpn",
+    "sku",
+    "package",
+    "condition",
+    "currency",
+    "price_breaks",
+    "moq",
+    "order_multiple",
+    "stock_qty",
+    "lead_days",
+    "tax_included",
+    "tax_rate",
+    "shipping",
+    "observed_at",
+    "expires_at",
+    "source_uri",
+    "evidence_sha256",
+    "data_mode",
+    "reuse_policy"
+  ],
+  "additionalProperties": false
+}

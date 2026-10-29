@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "address_unit": "byte",
+  "data_bits": 32,
+  "bus": "single_cycle_ready_valid",
+  "registers": [
+    {
+      "name": "CTRL",
+      "offset": 0,
+      "access": "wo",
+      "meaning": "bit0 ARM pulse; bit1 ABORT pulse; ABORT wins; other bits zero"
+    },
+    {
+      "name": "STATUS",
+      "offset": 4,
+      "access": "ro",
+      "meaning": "state bits0..2; overflow bit8; error bit9; other bits zero"
+    },
+    {
+      "name": "SAMPLE_DIV",
+      "offset": 8,
+      "access": "rw",
+      "meaning": "10 or100; reset10; writes only IDLE/DONE/ABORTED/ERROR"
+    },
+    {
+      "name": "CHANNEL_MASK",
+      "offset": 12,
+      "access": "rw",
+      "meaning": "reset all; nonzero; out-of-range bits rejected"
+    },
+    {
+      "name": "TRIGGER_MODE",
+      "offset": 16,
+      "access": "rw",
+      "meaning": "0 software;1 rising; reset0"
+    },
+    {
+      "name": "TRIGGER_CHANNEL",
+      "offset": 20,
+      "access": "rw",
+      "meaning": "0..CHANNELS-1; enabled in rising; reset0"
+    },
+    {
+      "name": "DEPTH",
+      "offset": 24,
+      "access": "rw",
+      "meaning": "power of2 in16..4096; reset4096"
+    },
+    {
+      "name": "SAMPLE_COUNT",
+      "offset": 28,
+      "access": "ro",
+      "meaning": "0..DEPTH; zero on ARM"
+    },
+    {
+      "name": "CAPTURE_ID",
+      "offset": 32,
+      "access": "ro",
+      "meaning": "uint32 nonzero per accepted ARM; reset0; wrap skips0"
+    },
+    {
+      "name": "ERROR_CODE",
+      "offset": 36,
+      "access": "ro",
+      "meaning": "last error; clear by valid SET_CONFIG/reset"
+    },
+    {
+      "name": "CAPABILITIES",
+      "offset": 40,
+      "access": "ro",
+      "meaning": "CHANNELS bits0..7; sample_bytes bits8..15; protocol major bits16..23"
+    }
+  ]
+}

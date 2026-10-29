@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:EvidenceValidity:1.0",
+  "title": "EvidenceValidity",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "evidence_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "current_revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "effective_status": {
+      "type": "string",
+      "enum": [
+        "NOT_RUN",
+        "PASS",
+        "FAIL",
+        "INDETERMINATE",
+        "STALE"
+      ]
+    },
+    "stale_reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "signature_valid": {
+      "type": "boolean"
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "current_revision_id",
+    "effective_status",
+    "stale_reason",
+    "signature_valid",
+    "evaluated_at"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:RevisionInput:1.0",
+  "title": "RevisionInput",
+  "type": "object",
+  "properties": {
+    "parent_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requirement_artifact_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "contract_artifact_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "acceptance_artifact_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "parent_id",
+    "requirement_artifact_id",
+    "contract_artifact_id",
+    "acceptance_artifact_id"
+  ],
+  "additionalProperties": false
+}

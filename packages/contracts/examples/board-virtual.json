@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "id": "44444444-4444-4444-8444-444444444444",
+  "kind": "virtual",
+  "name": "virtual-capture-100mhz",
+  "device_mpn": null,
+  "package": null,
+  "clock_hz": 100000000,
+  "clock_source": "simulation",
+  "bank_voltages": [],
+  "pins": [],
+  "source_refs": [],
+  "tool_profile_id": null,
+  "electrical_review_id": null,
+  "programming_allowed": false
+}

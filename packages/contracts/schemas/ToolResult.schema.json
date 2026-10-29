@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:ToolResult:1.0",
+  "title": "ToolResult",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "call_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed",
+        "timeout",
+        "cancelled",
+        "blocked",
+        "not_run"
+      ]
+    },
+    "tool_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "exit_code": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+      }
+    },
+    "log_ref": {
+      "anyOf": [
+        {
+          "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "call_id",
+    "task_id",
+    "revision_id",
+    "status",
+    "tool_version",
+    "input_sha256",
+    "started_at",
+    "finished_at",
+    "exit_code",
+    "artifact_refs",
+    "log_ref",
+    "summary"
+  ],
+  "additionalProperties": false
+}

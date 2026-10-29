@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:CommandParameters:1.0",
+  "title": "CommandParameters",
+  "type": "object",
+  "properties": {
+    "target_version_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifact_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "approval_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preserve_history": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "target_version_id",
+    "artifact_id",
+    "approval_id",
+    "reason",
+    "preserve_history"
+  ],
+  "additionalProperties": false
+}

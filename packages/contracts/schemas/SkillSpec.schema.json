@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:SkillSpec:1.0",
+  "title": "SkillSpec",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_artifact_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:Permission:1.0"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "name",
+    "version",
+    "source_ref",
+    "content_artifact_id",
+    "content_sha256",
+    "license",
+    "dependencies",
+    "permissions"
+  ],
+  "additionalProperties": false
+}

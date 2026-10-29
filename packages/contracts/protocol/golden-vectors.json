@@ -1,0 +1,112 @@
+{
+  "protocol": "capture/1.0",
+  "crc_check_ascii": "123456789",
+  "crc_check_hex": "29b1",
+  "vectors": [
+    {
+      "name": "get_caps_request",
+      "type": 1,
+      "sequence": 1,
+      "payload_hex": "",
+      "frame_hex": "a55a0100010001000000f945"
+    },
+    {
+      "name": "caps_8ch_response",
+      "type": 129,
+      "sequence": 1,
+      "payload_hex": "080100e1f5050010000403000000",
+      "frame_hex": "a55a0100810001000e00080100e1f5050010000403000000c736"
+    },
+    {
+      "name": "caps_16ch_response",
+      "type": 129,
+      "sequence": 1,
+      "payload_hex": "100200e1f5050010000403000000",
+      "frame_hex": "a55a0100810001000e00100200e1f5050010000403000000fed4"
+    },
+    {
+      "name": "set_config_8ch_software",
+      "type": 2,
+      "sequence": 2,
+      "payload_hex": "00000a00ff0000100000",
+      "frame_hex": "a55a0100020002000a0000000a00ff0000100000d398"
+    },
+    {
+      "name": "set_config_16ch_rising",
+      "type": 2,
+      "sequence": 2,
+      "payload_hex": "010f6400ffff00100000",
+      "frame_hex": "a55a0100020002000a00010f6400ffff00100000c426"
+    },
+    {
+      "name": "set_config_response",
+      "type": 130,
+      "sequence": 2,
+      "payload_hex": "",
+      "frame_hex": "a55a0100820002000000e5c4"
+    },
+    {
+      "name": "arm_request",
+      "type": 3,
+      "sequence": 3,
+      "payload_hex": "",
+      "frame_hex": "a55a0100030003000000d123"
+    },
+    {
+      "name": "arm_response",
+      "type": 131,
+      "sequence": 3,
+      "payload_hex": "01000000",
+      "frame_hex": "a55a010083000300040001000000176a"
+    },
+    {
+      "name": "read_16ch_request",
+      "type": 4,
+      "sequence": 4,
+      "payload_hex": "01000000000000000300",
+      "frame_hex": "a55a0100040004000a0001000000000000000300b9ef"
+    },
+    {
+      "name": "read_16ch_response",
+      "type": 132,
+      "sequence": 4,
+      "payload_hex": "01000000000000000300020001000080ffff",
+      "frame_hex": "a55a010084000400120001000000000000000300020001000080ffff2068"
+    },
+    {
+      "name": "status_request",
+      "type": 5,
+      "sequence": 5,
+      "payload_hex": "",
+      "frame_hex": "a55a0100050005000000a989"
+    },
+    {
+      "name": "status_response",
+      "type": 133,
+      "sequence": 5,
+      "payload_hex": "03100000010000000010000000000000",
+      "frame_hex": "a55a010085000500100003100000010000000010000000000000cc2b"
+    },
+    {
+      "name": "abort_request",
+      "type": 6,
+      "sequence": 7,
+      "payload_hex": "",
+      "frame_hex": "a55a010006000700000021aa"
+    },
+    {
+      "name": "abort_response",
+      "type": 134,
+      "sequence": 7,
+      "payload_hex": "01000000",
+      "frame_hex": "a55a0100860007000400010000000aa7"
+    },
+    {
+      "name": "error_stale_capture",
+      "type": 255,
+      "sequence": 6,
+      "payload_hex": "040500",
+      "frame_hex": "a55a0100ff0006000300040500b9ec"
+    }
+  ]
+}

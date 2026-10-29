@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "project_id": "11111111-1111-4111-8111-111111111111",
+  "revision_id": "22222222-2222-4222-8222-222222222222",
+  "tests": [
+    {
+      "id": "AC-RTL-01",
+      "requirement_keys": [
+        "channels"
+      ],
+      "level": "eda",
+      "fixture": "independent-pattern",
+      "expected": "8 channels in exact order",
+      "blocking": true,
+      "protected": true,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "AC-RTL-02",
+      "requirement_keys": [
+        "sample_rate"
+      ],
+      "level": "eda",
+      "fixture": "clock-enable-boundaries",
+      "expected": "sample every10 cycles",
+      "blocking": true,
+      "protected": true,
+      "timeout_seconds": 120
+    }
+  ]
+}

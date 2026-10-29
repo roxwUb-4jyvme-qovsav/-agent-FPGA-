@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:ConnectionConfig:1.0",
+  "title": "ConnectionConfig",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "mcp",
+        "knowledge",
+        "quote",
+        "registry"
+      ]
+    },
+    "transport": {
+      "type": "string",
+      "enum": [
+        "stdio",
+        "streamable_http",
+        "https_json",
+        "static"
+      ]
+    },
+    "endpoint": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "managed_package_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "secret_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schema_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:Permission:1.0"
+      }
+    },
+    "config_artifact_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 600
+    }
+  },
+  "required": [
+    "schema_version",
+    "name",
+    "kind",
+    "transport",
+    "endpoint",
+    "managed_package_id",
+    "secret_ref",
+    "schema_sha256",
+    "permissions",
+    "config_artifact_id",
+    "timeout_seconds"
+  ],
+  "additionalProperties": false
+}
