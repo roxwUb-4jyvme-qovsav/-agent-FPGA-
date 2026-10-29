@@ -16,9 +16,27 @@ def collection_visible(db, user, collection) -> bool:
 
 
 def document_visible(db, user, document, upload=None) -> bool:
-    if document.state == "DELETED":
+    if document.state == "DELETED" or not document.project_id:
         return False
-    collection = db.get(ResourceRecord, document.payload["collection_id"])
+    membership = db.scalar(
+        select(Member).where(Member.project_id == document.project_id, Member.user_id == user.id)
+    )
+    upload = upload or db.get(UploadRecord, document.payload["upload_id"])
+    if (
+        not membership
+        or not upload
+        or upload.id != document.payload["upload_id"]
+        or upload.project_id != document.project_id
+        or not upload.owner_id
+    ):
+        return False
+    # 任务附件没有知识集合；先校验项目与上传归属，再仅向上传者开放。
+    if document.payload.get("scope") == "task_only":
+        return upload.owner_id == user.id
+    collection_id = document.payload.get("collection_id")
+    if not collection_id:
+        return False
+    collection = db.get(ResourceRecord, collection_id)
     if (
         not collection
         or collection.kind != "collections"
@@ -28,9 +46,8 @@ def document_visible(db, user, document, upload=None) -> bool:
         return False
     if document.state == "PUBLISHED":
         return True
-    upload = upload or db.get(UploadRecord, document.payload["upload_id"])
     # 未发布或已撤销的原文只保留给上传者处理，不再作为项目共享资料。
-    return bool(upload and upload.owner_id == user.id)
+    return upload.owner_id == user.id
 
 
 def resource_visible(db, user, record) -> bool:

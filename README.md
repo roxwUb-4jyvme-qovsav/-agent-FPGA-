@@ -28,7 +28,7 @@ npm.cmd --prefix apps/web test -- --run
 npm.cmd --prefix apps/web run build
 ```
 
-当前记录为 Python 141 项通过（含本机实际执行的 6 项 Icarus 公开 RTL 测试），有 1 项 Starlette/httpx 依赖弃用警告。其他机器没有 Icarus 时 RTL 测试会跳过，不能把跳过记为通过。详见各模块实施报告和后续验证记录。
+当前记录为 Python 143 项通过（含本机实际执行的 6 项 Icarus 公开 RTL 测试），有 1 项 Starlette/httpx 依赖弃用警告。其他机器没有 Icarus 时 RTL 测试会跳过，不能把跳过记为通过。详见各模块实施报告和 [验证记录](docs/verification.md)。
 
 ## 资料
 

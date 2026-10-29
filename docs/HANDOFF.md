@@ -22,7 +22,13 @@
 
 ## 当前验证
 
-Python 全套 141 passed，1 项依赖弃用警告。前端已运行类型检查、测试与生产构建，最终结果详见 web-implementation.md。单元和公开测试不等于 84 项产品验收，当前不宣称完整 P0 验收通过。
+Python 全套 143 passed，1 项依赖弃用警告。前端已运行类型检查、测试与生产构建，最终结果详见 web-implementation.md。单元和公开测试不等于 84 项产品验收，当前不宣称完整 P0 验收通过。
+
+最终检查、审阅修复和上传记录见 [verification.md](verification.md)。冻结参考资料 179/179 条已按原始字节核对，Git 不转换这些文件的换行符。
+
+## 静态 Worker 接入约定
+
+`contract.validate` 的 `ToolResult.input_sha256` 绑定 `TaskEnvelope.input_artifacts` 完整列表：使用 UTF-8 编码的 JSON（`ensure_ascii=False, sort_keys=True, separators=(',', ':')`），再计算 SHA256；数组沿用冻结 envelope 的顺序。`passed` 必须为零退出码，结果及日志工件必须来自本任务受控上传。静态成功仅完成该任务，当前 run 仍保持 BLOCKED。
 
 ## 下一位开发者优先处理
 

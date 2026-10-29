@@ -124,3 +124,79 @@ def test_private_document_acl_inherits_to_artifact_listing_and_bytes(tmp_path):
             guest_csrf,
         )
         assert search.json()["hits"] == []
+
+
+def test_task_only_uploader_can_read_own_document_and_bytes_but_peer_cannot(tmp_path):
+    from apps.api.models import UploadRecord
+
+    with open_client(tmp_path) as client:
+        csrf = setup(client)
+        pid = project(client, csrf).json()["id"]
+        add_developer(client, csrf, pid)
+        content = b"UPLOADER TASK ONLY CONTENT\n"
+        ticket = upload(client, pid, csrf, content)
+        created = write(
+            client,
+            "post",
+            f"/projects/{pid}/documents",
+            {
+                "upload_id": ticket,
+                "collection_id": None,
+                "scope": "task_only",
+                "license": "internal",
+                "external_send_allowed": False,
+            },
+            csrf,
+        )
+        assert created.status_code == 201, created.text
+        document = created.json()
+        with client.app.state.db.transaction() as db:
+            artifact_id = db.get(UploadRecord, ticket).artifact_id
+        document_path = f"/api/v1/projects/{pid}/documents/{document['id']}"
+        content_path = f"/api/v1/projects/{pid}/artifacts/{artifact_id}/content"
+        listed = client.get(f"/api/v1/projects/{pid}/documents").json()["items"]
+        assert document["id"] in {item["id"] for item in listed}
+        assert client.get(document_path).status_code == 200
+        downloaded = client.get(content_path)
+        assert downloaded.status_code == 200 and downloaded.content == content
+        switch(client, csrf, "guest", "guest-private-password")
+        assert client.get(f"/api/v1/projects/{pid}/documents").json()["items"] == []
+        assert client.get(document_path).status_code == 404
+        assert client.get(content_path).status_code == 404
+
+
+def test_task_only_visibility_rejects_upload_scope_or_owner_mismatch(tmp_path):
+    from apps.api.models import ResourceRecord, UploadRecord, User
+    from apps.api.services.visibility import document_visible
+
+    with open_client(tmp_path) as client:
+        csrf = setup(client)
+        pid = project(client, csrf).json()["id"]
+        owner_id = client.get("/api/v1/auth/session").json()["user_id"]
+        ticket = upload(client, pid, csrf)
+        document = write(
+            client,
+            "post",
+            f"/projects/{pid}/documents",
+            {
+                "upload_id": ticket,
+                "collection_id": None,
+                "scope": "task_only",
+                "license": "internal",
+                "external_send_allowed": False,
+            },
+            csrf,
+        ).json()
+        with client.app.state.db.transaction() as db:
+            user = db.get(User, owner_id)
+            record = db.get(ResourceRecord, document["id"])
+            uploaded = db.get(UploadRecord, ticket)
+            assert document_visible(db, user, record, uploaded)
+            uploaded.project_id = "another-project"
+            assert not document_visible(db, user, record, uploaded)
+            uploaded.project_id = pid
+            uploaded.owner_id = "another-user"
+            assert not document_visible(db, user, record, uploaded)
+            uploaded.owner_id = owner_id
+            record.state = "DELETED"
+            assert not document_visible(db, user, record, uploaded)
