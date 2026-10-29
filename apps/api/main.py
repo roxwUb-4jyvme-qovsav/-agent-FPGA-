@@ -14,6 +14,7 @@ from packages.contracts.validation import ContractError
 from .config import Settings
 from .database import Database
 from .errors import ApiError
+from .request_context import request_id_context
 from .routers import auth, resources
 
 
@@ -34,7 +35,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.middleware("http")
     async def request_context(request: Request, call_next):
         request.state.request_id = str(uuid4())
-        result = await call_next(request)
+        token = request_id_context.set(request.state.request_id)
+        try:
+            result = await call_next(request)
+        finally:
+            request_id_context.reset(token)
         result.headers["X-Request-ID"] = request.state.request_id
         result.headers["X-Content-Type-Options"] = "nosniff"
         result.headers["Referrer-Policy"] = "same-origin"
@@ -65,7 +70,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(auth.router)
     app.include_router(resources.router)
     # 可选功能在各自模块注册，避免入口与产品实现互相耦合。
-    from .routers import devices, domain, files, jobs, system, workflow
+    from .routers import devices, domain, events, files, jobs, system, workflow
 
     app.include_router(system.router)
     app.include_router(files.router)
@@ -73,6 +78,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(jobs.router)
     app.include_router(domain.router)
     app.include_router(devices.router)
+    app.include_router(events.router)
     if settings.web_dist.is_dir():
         from fastapi.staticfiles import StaticFiles
 

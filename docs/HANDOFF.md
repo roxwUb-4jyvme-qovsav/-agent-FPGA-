@@ -53,3 +53,5 @@ Python 全套 143 passed，1 项依赖弃用警告。前端已运行类型检查
 ## 后续接续快照
 
 2026-10-29 设备持久化接线已在 codex/device-persistence 分支完成当前范围，最新结果与限制见 [CONTINUATION-2026-10-29.md](CONTINUATION-2026-10-29.md)。前文保留为原交接历史；SSE 仍未实现。
+
+2026-10-29 后续 SSE/outbox 接续见 [SSE-HANDOFF.md](SSE-HANDOFF.md)：订阅、断线游标、权限过滤及前端刷新已接线；最终回归与剩余限制以新记录为准。

@@ -24,3 +24,5 @@ Ruling: 用户最新指令为交接并上传指定 GitHub，当前工作收口�
 2026-10-29 审阅复核三项原始问题均闭环；补修 task_only 文档上传者可见性回归，新增两项红绿测试。最终全套 143 passed/1 依赖弃用警告；最终结果见 docs/verification.md。
 
 2026-10-29 接续设备闭环：5 项 API 红绿测试，Python 全套 142 passed/6 RTL skipped/1 warning；前端 17 passed、类型检查和构建通过。详情与裁定见 CONTINUATION-2026-10-29.md。独立审阅因账号额度限制未完成，优先保存并上传阶段成果。
+
+2026-10-29 SSE 接续：已提交 outbox 事件快照、项目 SSE、七天重连游标、ACL过滤/撤权断流、前端自动重连与状态刷新。独立审阅锁序问题及取消后的401副作用已红绿修复；最终 Python151 passed/6 RTL skipped/1 warning，前端24 passed、类型检查及构建通过。裁定、延期Minor及后续任务见 SSE-HANDOFF.md。

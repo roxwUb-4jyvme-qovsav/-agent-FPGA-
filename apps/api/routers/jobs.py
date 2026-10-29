@@ -12,7 +12,16 @@ from packages.contracts.validation import validate_payload
 from ..errors import ApiError
 from ..models import TaskRecord, utcnow
 from ..security import aware, project_role, token_hash
-from ..services.common import event, get_resource, history, iso, mutate, read, sha
+from ..services.common import (
+    event,
+    get_resource,
+    history,
+    iso,
+    lock_event_projects,
+    mutate,
+    read,
+    sha,
+)
 
 router = APIRouter(prefix="/api/v1")
 
@@ -71,8 +80,22 @@ async def claim(request: Request):
         expired = db.scalars(
             select(TaskRecord)
             .where(TaskRecord.state.in_(("LEASED", "RUNNING")), TaskRecord.lease_expires_at < now)
+            .order_by(TaskRecord.project_id, TaskRecord.id)
             .with_for_update(skip_locked=True)
         ).all()
+        # 保留验证能力不进入生成 Worker 队列，客户端自报 capability 不能取得验收权限。
+        query = select(TaskRecord).where(
+            TaskRecord.state == "QUEUED",
+            TaskRecord.capability.in_(
+                [c for c in body["capabilities"] if c == "contract.validate"]
+            ),
+        )
+        candidates = db.scalars(
+            query.order_by(TaskRecord.project_id, TaskRecord.created_at, TaskRecord.id).with_for_update(skip_locked=True)
+        ).all()
+        # 先完成行锁选择，再按统一顺序取得整个事务的项目事件锁。
+        # 否则“过期项目 B → 新领取项目 A”可能与另一 Worker 反序互等。
+        lock_event_projects(db, {task.project_id for task in [*expired, *candidates]})
         for task in expired:
             task.state = "LOST"
             attempts = list(task.attempts)
@@ -85,16 +108,6 @@ async def claim(request: Request):
                 project_id=task.project_id,
                 payload={"task_id": task.id},
             )
-        # 保留验证能力不进入生成 Worker 队列，客户端自报 capability 不能取得验收权限。
-        query = select(TaskRecord).where(
-            TaskRecord.state == "QUEUED",
-            TaskRecord.capability.in_(
-                [c for c in body["capabilities"] if c == "contract.validate"]
-            ),
-        )
-        candidates = db.scalars(
-            query.order_by(TaskRecord.created_at).with_for_update(skip_locked=True)
-        ).all()
         task = None
         for candidate in candidates:
             run = get_resource(db, "runs", candidate.run_id, candidate.project_id)
