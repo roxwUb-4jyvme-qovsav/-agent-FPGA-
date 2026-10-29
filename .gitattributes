@@ -3,3 +3,7 @@
 *.jpg binary
 *.zip binary
 *.docx binary
+# 冻结参考资料的 SHA256 按原始字节计算，禁止 Git 换行转换。
+docs/reference/** -text
+packages/contracts/** -text
+legacy/** -text

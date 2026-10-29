@@ -8,9 +8,13 @@ Ruling: 现有总体设计和规格是用户本次开发指令的基线，不重
 
 Ruling: 前端采用 React TypeScript Vite，数据库通过 SQLAlchemy 支持 PostgreSQL；SQLite 仅显式本地开发/测试 — 兼顾规格部署架构与当前无 PostgreSQL 服务的环境，SQLite 结果不计入 PostgreSQL 并发验收。
 
-- Task 1: pending
-- Task 2: pending
-- Task 3: pending
-- Task 4: pending
-- Task 5: pending
-- Task 6: pending
+- Task 1: 基础已实现，权限与事务测试通过；PostgreSQL 和迁移仍未验收。
+- Task 2: 产品库、快照与 RTL 已实现当前范围；77 项本模块测试通过，含 6 项真实公开 RTL TB；总线仲裁、完整矩阵与工程验证仍缺。
+- Task 3: 领域包及管理 API 当前范围完成；49 项本范围测试通过，真实外接与完整生命周期仍有缺项。
+- Task 4: 前端类型检查、15 项测试、生产构建通过；浏览器实际走到 mock 会话 OPEN，设备命令和 SSE 尚缺后端接线。
+- Task 5: 版本批准、上传、任务与租约已接线；设备/事件/验收工件服务等未完成。
+- Task 6: 用户要求立即交接，停止扩大实现；整理参考资料和启动入口，实际 Python 全套 141 passed/1 依赖弃用警告。
+
+Ruling: 用户最新指令为交接并上传指定 GitHub，当前工作收口为开发快照，保持所有缺项可见 — 不声称完整首版完成。
+
+2026-10-29 本机 GitHub 登录授权完成，但账号 sch9999 对目标仓库初次推送返回 403；提交保留在本机，等待账号写权限或切换账号后重推，不执行 force push。

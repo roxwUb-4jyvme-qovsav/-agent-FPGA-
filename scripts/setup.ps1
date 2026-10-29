@@ -6,7 +6,9 @@ if (-not (Test-Path -LiteralPath '.venv\Scripts\python.exe')) {
     & $Python -m venv .venv
     if ($LASTEXITCODE -ne 0) { throw '需要 Python 3.12 或更新版本' }
 }
-& '.\.venv\Scripts\python.exe' -m pip install -e '.[dev]'
+& '.\.venv\Scripts\python.exe' -m pip install -r requirements.lock
+if ($LASTEXITCODE -ne 0) { throw '冻结依赖安装失败' }
+& '.\.venv\Scripts\python.exe' -m pip install --no-deps -e '.[dev]'
 if ($LASTEXITCODE -ne 0) { throw 'Python 依赖安装失败' }
 if (-not (Test-Path -LiteralPath '.env')) {
     @'
