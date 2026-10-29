@@ -41,3 +41,5 @@ npm.cmd --prefix apps/web run build
 - `docs/analyzer-implementation.md`、`docs/domain-implementation.md`、`docs/web-implementation.md` 记录各模块细节。
 
 `.env`、.venv、node_modules、.local、数据库、QA账号与工具二进制不上传。真实配置须在接手机器重新登记，勿提交密钥。
+
+独立验收接续与本机服务登记方式见 [VERIFICATION-HANDOFF.md](docs/VERIFICATION-HANDOFF.md)。签名证据接口就绪不代表真实工程验收已执行。

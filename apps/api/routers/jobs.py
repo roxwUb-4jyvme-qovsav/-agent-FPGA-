@@ -1,7 +1,5 @@
 """Worker 仅领取许可能力；有效租约、attempt 与 fence 三者同时匹配才可提交。"""
 
-import secrets
-from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Request
@@ -11,7 +9,7 @@ from packages.contracts.validation import validate_payload
 
 from ..errors import ApiError
 from ..models import TaskRecord, utcnow
-from ..security import aware, project_role, token_hash
+from ..security import aware, project_role
 from ..services.common import (
     event,
     get_resource,
@@ -22,29 +20,28 @@ from ..services.common import (
     read,
     sha,
 )
+from ..services.service_identity import authorize_claim, authorize_task, worker_auth
 
 router = APIRouter(prefix="/api/v1")
 
 
-@dataclass(frozen=True)
-class ServicePrincipal:
-    id: str
-
-
-def worker_auth(db, request, *, write=False):
-    expected = request.app.state.settings.worker_token
-    supplied = request.headers.get("authorization", "")
-    if not expected or not secrets.compare_digest(supplied, "Bearer " + expected):
-        raise ApiError(401, "WORKER_UNAUTHORIZED", "Worker 服务凭据无效或尚未配置")
-    return ServicePrincipal("worker:" + token_hash(expected)[:24])
-
-
 def deadline_elapsed(task) -> bool:
-    return aware(datetime.fromisoformat(task.envelope["deadline"].replace("Z", "+00:00"))) <= utcnow()
+    return (
+        aware(datetime.fromisoformat(task.envelope["deadline"].replace("Z", "+00:00"))) <= utcnow()
+    )
 
 
 def current_lease(db, job_id, body):
-    task = db.scalar(select(TaskRecord).where(TaskRecord.id == job_id).with_for_update())
+    candidate = db.get(TaskRecord, job_id)
+    if candidate is not None and candidate.capability == "acceptance.verify":
+        # 验收的入库、失败结束、心跳和工件通道统一采用 run -> task 锁序。
+        get_resource(db, "runs", candidate.run_id, candidate.project_id, lock=True)
+    task = db.scalar(
+        select(TaskRecord)
+        .where(TaskRecord.id == job_id)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    )
     if (
         not task
         or task.state not in ("LEASED", "RUNNING", "CANCEL_REQUESTED")
@@ -80,13 +77,21 @@ def task_view(task):
 async def claim(request: Request):
     def operation(db, principal, body):
         validate_payload("JobClaim", body)
+        authorize_claim(principal, body)
         now = utcnow()
+        scope = [TaskRecord.capability.in_(principal.capabilities)]
+        if "*" not in principal.project_ids:
+            scope.append(TaskRecord.project_id.in_(principal.project_ids))
         expired = db.scalars(
             select(TaskRecord)
             .where(
                 TaskRecord.state.in_(("LEASED", "RUNNING"))
-                | ((TaskRecord.state == "CANCEL_REQUESTED") & (TaskRecord.capability == "contract.validate")),
+                | (
+                    (TaskRecord.state == "CANCEL_REQUESTED")
+                    & (TaskRecord.capability == "contract.validate")
+                ),
                 TaskRecord.lease_expires_at < now,
+                *scope,
             )
             .order_by(TaskRecord.project_id, TaskRecord.id)
             .with_for_update(skip_locked=True)
@@ -94,12 +99,13 @@ async def claim(request: Request):
         # 保留验证能力不进入生成 Worker 队列，客户端自报 capability 不能取得验收权限。
         query = select(TaskRecord).where(
             TaskRecord.state == "QUEUED",
-            TaskRecord.capability.in_(
-                [c for c in body["capabilities"] if c == "contract.validate"]
-            ),
+            *scope,
+            TaskRecord.capability.in_(body["capabilities"]),
         )
         candidates = db.scalars(
-            query.order_by(TaskRecord.project_id, TaskRecord.created_at, TaskRecord.id).with_for_update(skip_locked=True)
+            query.order_by(
+                TaskRecord.project_id, TaskRecord.created_at, TaskRecord.id
+            ).with_for_update(skip_locked=True)
         ).all()
         # 先完成行锁选择，再按统一顺序取得整个事务的项目事件锁。
         # 否则“过期项目 B → 新领取项目 A”可能与另一 Worker 反序互等。
@@ -172,7 +178,11 @@ async def claim(request: Request):
             {},
         )
 
-    return await mutate(request, operation, authenticator=worker_auth)
+    def preauthorize(db, principal, body):
+        validate_payload("JobClaim", body)
+        authorize_claim(principal, body)
+
+    return await mutate(request, operation, authenticator=worker_auth, preauthorize=preauthorize)
 
 
 @router.post("/worker/jobs/{job_id}/heartbeat")
@@ -180,6 +190,7 @@ async def heartbeat(request: Request, job_id: str):
     def operation(db, principal, body):
         validate_payload("JobHeartbeat", body)
         task = current_lease(db, job_id, body)
+        authorize_task(principal, task)
         if deadline_elapsed(task) and task.state != "CANCEL_REQUESTED":
             raise ApiError(409, "TASK_DEADLINE_EXCEEDED", "任务已超出绝对截止时间")
         task.lease_expires_at = utcnow() + timedelta(seconds=60)
@@ -206,7 +217,14 @@ async def complete(request: Request, job_id: str):
     def operation(db, principal, body):
         validate_payload("JobComplete", body)
         task = current_lease(db, job_id, body)
+        authorize_task(principal, task)
         result = body["result"]
+        if task.capability == "acceptance.verify" and result["status"] not in (
+            "cancelled",
+            "timeout",
+            "failed",
+        ):
+            raise ApiError(403, "SIGNED_EVIDENCE_REQUIRED", "验收结果必须经独立签名证据入口提交")
         if result["task_id"] != task.id or result["revision_id"] != task.revision_id:
             raise ApiError(409, "STALE_LEASE", "结果不属于当前任务和版本")
         if task.capability == "contract.validate" and "call_id" not in result:
@@ -216,9 +234,12 @@ async def complete(request: Request, job_id: str):
             refs.append(result["log_ref"])
         for ref in refs:
             artifact = get_resource(db, "artifacts", ref["id"], task.project_id)
-            if (artifact.payload != ref or artifact.internal.get("task_id") != task.id
-                    or artifact.internal.get("fencing_token") != task.fencing_token
-                    or artifact.internal.get("attempt") != task.attempt):
+            if (
+                artifact.payload != ref
+                or artifact.internal.get("task_id") != task.id
+                or artifact.internal.get("fencing_token") != task.fencing_token
+                or artifact.internal.get("attempt") != task.attempt
+            ):
                 raise ApiError(422, "ARTIFACT_SCOPE_MISMATCH", "结果只能引用本任务受控上传工件")
         status = result["status"]
         if task.capability == "contract.validate":

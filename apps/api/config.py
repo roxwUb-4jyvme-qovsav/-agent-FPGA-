@@ -20,6 +20,7 @@ class Settings:
     worker_token: str | None = None
     verifier_token: str | None = None
     verifier_public_keys: Path | None = None
+    service_principals: Path | None = None
     session_hours: int = 8
     web_dist: Path = field(default_factory=lambda: Path("apps/web/dist").resolve())
 
@@ -32,6 +33,11 @@ class Settings:
             secure_cookies=os.getenv("FPGA_SECURE_COOKIES") == "1",
             worker_token=os.getenv("FPGA_WORKER_TOKEN"),
             verifier_token=os.getenv("FPGA_VERIFIER_TOKEN"),
+            service_principals=(
+                Path(os.environ["FPGA_SERVICE_PRINCIPALS"])
+                if os.getenv("FPGA_SERVICE_PRINCIPALS")
+                else None
+            ),
             verifier_public_keys=(
                 Path(os.environ["FPGA_VERIFIER_KEYS"]) if os.getenv("FPGA_VERIFIER_KEYS") else None
             ),

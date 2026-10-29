@@ -57,3 +57,5 @@ Python 全套 143 passed，1 项依赖弃用警告。前端已运行类型检查
 2026-10-29 后续 SSE/outbox 接续见 [SSE-HANDOFF.md](SSE-HANDOFF.md)：订阅、断线游标、权限过滤及前端刷新已接线；最终回归与剩余限制以新记录为准。
 
 2026-10-29 Worker 任务限定工件接口、常驻静态执行和 PostgreSQL16.15 并发实测见 [WORKER-HANDOFF.md](WORKER-HANDOFF.md)。
+
+2026-10-29 独立验收服务身份、报告受控上传、签名证据持久化与有效性接续见 [VERIFICATION-HANDOFF.md](VERIFICATION-HANDOFF.md)。真实隔离验收后端与自动任务创建仍未接入。
