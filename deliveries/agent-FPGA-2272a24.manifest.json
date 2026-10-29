@@ -1,0 +1,8 @@
+{
+  "source_commit": "2272a246ad4265269048e52960f41f07c1e57880",
+  "archive": "agent-FPGA-2272a24.zip",
+  "sha256": "ad420887114da46ff4c21f7f562040c6f4c693ebcf77c72a32aaf608e9a9fcac",
+  "files": 430,
+  "manifest": "agent-FPGA/package_manifest.json",
+  "hardware_test_status": "NOT_RUN"
+}

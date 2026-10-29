@@ -1,0 +1,8 @@
+{
+  "source_commit": "e3e8c374c970b80820ee716f56289fabd78d01d2",
+  "archive": "agent-FPGA-e3e8c37.zip",
+  "sha256": "f8de673a98c308c46b9f1816bdaddbe665d15687d18b0b66f7c501c08c7d61bc",
+  "files": 437,
+  "manifest": "agent-FPGA/package_manifest.json",
+  "hardware_test_status": "NOT_RUN"
+}

@@ -12,6 +12,7 @@ import { ProjectsPage } from './pages/Projects';
 import { ResourcesPage } from './pages/Resources';
 import { RunsPage } from './pages/Runs';
 import { SystemPage } from './pages/System';
+import { ProjectEventsProvider } from './components/ProjectEvents';
 
 const navigation = [
   { title: '工程空间', items: [
@@ -77,11 +78,11 @@ export default function App() {
   else if (route === 'ecosystem') content = session.global_role === 'admin' ? <EcosystemPage /> : <Empty title="需要全局管理员权限" text="模型、连接、扩展、账号与预算由全局管理员管理。项目角色不会授予全局管理权限。" />;
   else if (resources[route]) content = <ResourcesPage key={`${route}-${projectId}`} definition={resources[route]} projectId={projectId} />;
   else content = <Empty title="页面不存在" action={<button className="button" onClick={() => navigate('overview')}>返回概览</button>} />;
-  return <div className="app-shell">
+  return <ProjectEventsProvider projectId={projectId}><div className="app-shell">
     {sidebarOpen && <button className="sidebar-overlay" aria-label="收起导航" onClick={() => setSidebarOpen(false)} />}
     <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}><div className="brand"><span className="brand-icon"><CircuitBoard size={23} /></span><span>FPGA <strong>COLLAB</strong><small>协同开发平台</small></span><button className="mobile-close icon-button" aria-label="关闭导航" onClick={() => setSidebarOpen(false)}><X size={20} /></button></div><div className="workspace-label"><span className="tiny-dot" />本机工程空间<span>LOCAL</span></div><nav aria-label="主导航">{navigation.map(group => <div className="nav-group" key={group.title}><div className="nav-group-title">{group.title}</div>{group.items.map(item => <button key={item.id} className={`nav-item ${route === item.id ? 'active' : ''}`} onClick={() => { navigate(item.id); setSidebarOpen(false); }}><item.icon size={18} strokeWidth={1.7} /><span>{item.label}</span>{route === item.id && <ChevronRight size={14} />}</button>)}</div>)}</nav><div className="sidebar-bottom"><div className="local-status"><span className="tiny-dot" />本机运行 · 同源 API</div><button className="user-button" title={session.user_id} onClick={async () => { try { await api.delete('/auth/session'); api.setCsrf(''); setSession(null); setProjectId(null); } catch (reason) { setError(reason); } }}><span className="avatar">{session.global_role === 'admin' ? 'A' : 'U'}</span><span><strong>{session.global_role === 'admin' ? '平台管理员' : '工程用户'}</strong><small>{session.user_id.slice(0, 8)}</small></span><LogOut size={17} /></button></div></aside>
     <div className="main-shell"><header className="topbar"><button className="icon-button mobile-menu" aria-label="打开导航" onClick={() => setSidebarOpen(true)}><Menu size={21} /></button><div className="breadcrumbs"><span>工程空间</span><ChevronRight size={13} /><strong>{title}</strong></div><div className="topbar-right"><label className="project-select"><FolderKanban size={16} /><select aria-label="当前工程项目" value={projectId || ''} onChange={event => setProjectId(event.target.value || null)}><option value="">选择工程项目</option>{projects.data?.items.map(project => <option key={project.id} value={project.id}>{project.payload.name}</option>)}</select><ChevronDown size={13} /></label><span className="topbar-date">{new Date().toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' })}</span></div></header><main className="main-content"><ErrorNotice error={error} retry={() => setBoot(value => value + 1)} />{projects.error instanceof ApiFailure && projects.error.status === 401 && <div className="error-notice"><p>会话已过期，请重新登录。</p><button className="button" onClick={() => { setSession(null); api.setCsrf(''); }}>返回登录</button></div>}{content}<footer className="page-footer"><span>FPGA COLLAB <span className="muted">/</span> 可信工程，从每一个事实开始。</span><span>本机工作台 · schema 1.0</span></footer></main></div>
-  </div>;
+  </div></ProjectEventsProvider>;
 }
 
 function EcosystemPage() {

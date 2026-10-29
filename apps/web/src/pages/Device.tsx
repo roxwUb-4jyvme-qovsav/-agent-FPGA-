@@ -3,6 +3,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { api, parseApiFailure, projectPath } from '../api';
 import { encodeConfig, encodeRead, mergeCaptureChunk, type CaptureConfig } from '../device';
 import { useResource } from '../hooks';
+import { submitDeviceCommand, mockStimulus } from '../device-command';
 import type { CaptureChunk, CommandResult, Data, Resource, ResourceList } from '../types';
 import { Waveform } from '../components/Waveform';
 import { Empty, ErrorNotice, JsonView, Loading, Modal, PageHeading, shortId, Status } from '../components/ui';
@@ -56,9 +57,21 @@ export function DevicePage({ projectId }: { projectId: string | null }) {
     setBusy(true); setError(null);
     try {
       const payloadHex = action === 'set_config' ? encodeConfig(config) : payload;
-      const result = await api.post<CommandResult>(`${base}/${selected}/device-commands`, { action, sequence, payload_hex: payloadHex });
+      const result = await submitDeviceCommand(api, `${base}/${selected}`, { action, sequence, payload_hex: payloadHex });
       setSequence(value => (value + 1) & 0xffff);
-      applyResult(result.data, action === 'set_config' ? { ...config } : undefined);
+      applyResult(result, action === 'set_config' ? { ...config } : undefined);
+    } catch (reason) { setError(reason); } finally { setBusy(false); }
+  };
+
+  const injectMock = async () => {
+    if (!base || !selected || !configured) return;
+    setBusy(true); setError(null);
+    try {
+      await api.post(`${base}/${selected}/mock-inputs`, { segments: mockStimulus(configured) });
+      captures.reload();
+      const result = await submitDeviceCommand(api, `${base}/${selected}`, { action: 'status', sequence, payload_hex: '' });
+      setSequence(value => (value + 1) & 0xffff);
+      applyResult(result);
     } catch (reason) { setError(reason); } finally { setBusy(false); }
   };
 
@@ -73,6 +86,7 @@ export function DevicePage({ projectId }: { projectId: string | null }) {
       <label className="field"><span>触发方式</span><select value={config.triggerMode} onChange={event => setConfig({ ...config, triggerMode: Number(event.target.value) })}><option value={0}>软件触发</option><option value={1}>指定通道上升沿</option></select></label><label className="field"><span>触发通道</span><select value={config.triggerChannel} disabled={config.triggerMode === 0} onChange={event => setConfig({ ...config, triggerChannel: Number(event.target.value) })}>{Array.from({ length: config.channels }, (_, channel) => <option value={channel} key={channel}>D{channel.toString().padStart(2, '0')}</option>)}</select></label>
       <label className="field"><span>通道掩码（十六进制）</span><input className="mono" value={config.mask.toString(16)} pattern="[0-9a-fA-F]+" onChange={event => { const value = parseInt(event.target.value, 16); setConfig({ ...config, mask: Number.isFinite(value) ? value : 0 }); }} /></label>
       <button className="button full-width" disabled={busy || !capabilities} onClick={() => send('set_config')}>提交配置</button><div className="capture-actions"><button className="button primary" disabled={busy || !capabilities} onClick={() => send('arm')}><Play size={15} />ARM 采集</button><button className="button danger" disabled={busy} onClick={() => send('abort')}><CircleStop size={15} />中止</button></div>
+      {selectedSession?.payload.mode === 'mock' && <><button className="button full-width" disabled={busy || !configured || !captureId} onClick={injectMock}>注入低→高测试信号（mock）</button><p className="form-note">先提交配置并 ARM，再显式注入测试信号。信号由软件生成，不是硬件测量。</p></>}
       <p className="form-note">提交配置和启动新采集会使旧设备缓存失效。UART：115200 / 8N1。</p>
     </aside><div className="capture-main"><Waveform samples={samples} channels={config.channels} clockHz={clockHz} divider={configured?.divider || config.divider} timingKnown={configured !== null} /><form className="panel read-controls" onSubmit={event => { event.preventDefault(); try { void send('read_capture', encodeRead(captureId, readOffset, readCount)); } catch (reason) { setError(reason); } }}><label className="field"><span>采集 ID</span><input type="number" min="1" max="4294967295" required value={captureId || ''} onChange={event => { setCaptureId(Number(event.target.value)); setSamples([]); }} /></label><label className="field"><span>起始样本</span><input type="number" min="0" max="4095" required value={readOffset} onChange={event => setReadOffset(Number(event.target.value))} /></label><label className="field"><span>读取数量</span><input type="number" min="1" max={config.channels === 16 ? 506 : 1012} required value={readCount} onChange={event => setReadCount(Number(event.target.value))} /></label><button className="button" disabled={busy}>读取分片</button></form><div className="panel command-log"><div className="section-title"><h2>命令与响应</h2><small>下一序号 {sequence}</small></div>{commands.length ? commands.map(command => <div className="command-row" key={command.command_id}><span className="mono">#{command.sequence} {command.action}</span><Status value={command.state} />{['QUEUED', 'RUNNING'].includes(command.state) && <button className="text-link" disabled={busy} onClick={async () => { setBusy(true); try { const result = await api.get<CommandResult>(`${base}/${selected}/commands/${command.command_id}`); applyResult(result.data); } catch (reason) { setError(reason); } finally { setBusy(false); } }}>获取结果</button>}<details><summary>详情</summary><JsonView value={command} /></details></div>) : <p className="muted">尚未发送设备命令。</p>}</div></div></div><section className="panel"><div className="section-title"><h2>已保存采集</h2><button className="text-link" onClick={captures.reload}>刷新</button></div><ErrorNotice error={captures.error} retry={captures.reload} />{captures.loading ? <Loading /> : captures.data?.items.length ? captures.data.items.map((capture, index) => <details key={String(capture.id || index)}><summary>采集 {String(capture.capture_id || capture.id || index + 1)}</summary><JsonView value={capture} /></details>) : <p className="muted">平台尚未返回保存记录。设备分片与持久化采集记录分别展示。</p>}</section></> : <div className="panel"><Empty title="连接你的工程信号" text="新建虚拟、RTL 仿真、回放或硬件会话，然后选择会话开始采集。未配置的设备能力会显示具体错误。" /></div>}
     {createOpen && <DeviceSessionForm revisions={revisions.data?.items || []} error={revisions.error} close={() => setCreateOpen(false)} save={async data => { const result = await api.post<Resource>(base, data); sessions.reload(); setSelected(result.data.id); }} />}

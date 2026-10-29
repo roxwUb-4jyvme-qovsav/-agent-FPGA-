@@ -15,6 +15,8 @@
 .\scripts\dev.ps1 -DatabaseMode Sqlite
 ```
 
+零预算静态 Worker 在另一终端运行 `.\scripts\worker.ps1`，或用 `-Once` 执行一次。令牌由本机 `.env`/环境读取；完整 Agent、EDA/CAD 及独立验收仍需后续接入。最新接续与 PostgreSQL 实测见 [Worker 交接](docs/WORKER-HANDOFF.md)。
+
 打开 http://127.0.0.1:8765 ，首次使用自行设置管理员账号与密码；没有默认通用密码。SQLite 的结果不计入 PostgreSQL 并发验收。模型预算默认为 0，不会自动调用付费模型。
 
 VS Code 直接打开仓库目录，使用 .vscode 中的启动与测试配置。前端独立开发：`npm.cmd --prefix apps/web run dev`，代理 API 到 8765。
@@ -28,7 +30,7 @@ npm.cmd --prefix apps/web test -- --run
 npm.cmd --prefix apps/web run build
 ```
 
-当前记录为 Python 143 项通过（含本机实际执行的 6 项 Icarus 公开 RTL 测试），有 1 项 Starlette/httpx 依赖弃用警告。其他机器没有 Icarus 时 RTL 测试会跳过，不能把跳过记为通过。详见各模块实施报告和 [验证记录](docs/verification.md)。
+最新接续回归为 Python 170 项通过、6 项 RTL 跳过、1 项依赖警告，包含四项真实 PostgreSQL 并发/事务测试。当前机器没有 Icarus，跳过不能记为通过；队友机器的历史 RTL 结果保留在原验证记录。最新范围与限制见 [Worker 交接](docs/WORKER-HANDOFF.md)，历史记录见 [verification.md](docs/verification.md)。
 
 ## 资料
 

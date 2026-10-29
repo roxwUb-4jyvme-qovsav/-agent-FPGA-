@@ -4,6 +4,7 @@ import { api, projectPath } from '../api';
 import { useResource } from '../hooks';
 import type { Data, Resource, ResourceList, TaskRecord } from '../types';
 import { SchemaEditor, draftFor } from '../components/SchemaEditor';
+import { EventPanel } from '../components/ProjectEvents';
 import { dateTime, Empty, ErrorNotice, JsonView, Loading, Modal, PageHeading, shortId, Status } from '../components/ui';
 
 export function RunsPage({ projectId }: { projectId: string | null }) {
@@ -31,7 +32,7 @@ export function RunsPage({ projectId }: { projectId: string | null }) {
         <ErrorNotice error={run.error} retry={run.reload} />{run.data && <div className="run-info"><Status value={run.data.state} /><span>v{run.data.version}</span><span>更新于 {dateTime(run.data.updated_at)}</span></div>}
         <ErrorNotice error={tasks.error} retry={tasks.reload} />{tasks.loading ? <Loading /> : tasks.data?.items.length === 0 ? <Empty title="暂无任务" text="尚无调度任务，或调度条件尚未满足。请核对运行状态。" /> : <div className="task-list">{tasks.data?.items.map(task => <TaskCard key={task.task_id} projectId={projectId} runId={selected} task={task} refresh={refresh} />)}</div>}
       </>}</div></div>
-    <EventPanel projectId={projectId} />
+    <EventPanel />
     {createOpen && <RunForm revisions={revisions.data?.items || []} error={revisions.error} close={() => setCreateOpen(false)} save={async data => { const result = await api.post<Resource>(base, data); setSelected(result.data.id); runs.reload(); }} />}
     {commandOpen && run.data && <SchemaEditor schemaName="RunsResourceCommand" title="运行操作" initial={{ ...draftFor('RunsResourceCommand'), expected_version: run.data.version }} close={() => setCommandOpen(false)} save={async data => { await api.post(`${base}/${selected}/commands`, { ...data, expected_version: run.data!.version }, undefined, run.etag || run.data!.etag); refresh(); }} />}
     {snapshotOpen && <Modal title="不可变运行输入快照" close={() => setSnapshotOpen(false)}><ErrorNotice error={snapshot.error} retry={snapshot.reload} />{snapshot.loading ? <Loading /> : <JsonView value={snapshot.data} />}</Modal>}
@@ -55,19 +56,4 @@ function TaskCard({ task, projectId, runId, refresh }: { task: TaskRecord; proje
   const [error, setError] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
   return <article className="task-card"><div className="task-heading"><div className="task-icon"><ArrowRight size={17} /></div><div><h3>{task.envelope.agent_role}</h3><span className="mono muted">{shortId(task.task_id)} · 第 {task.envelope.attempt} 次尝试</span></div><Status value={task.state} /></div><p>{task.envelope.goal}</p>{task.waiting_reason && <div className="stale-banner">{task.waiting_reason}</div>}{task.questions.map(question => <div className="question" key={question.id}><div><strong>{question.blocking ? '待澄清 · 阻断' : '待澄清'}</strong><p>{question.question}</p>{question.answer && <small>已答：{question.answer}</small>}</div>{!question.answer && <button className="button" onClick={() => { setAnswer(question); setValue(''); setError(null); }}>回答</button>}</div>)}<details><summary>执行尝试与结果</summary><JsonView value={{ deadline: task.envelope.deadline, attempts: task.attempts, result: task.result }} /></details>{answer && <Modal title="回答任务问题" close={() => setAnswer(null)}><form onSubmit={async event => { event.preventDefault(); setBusy(true); setError(null); try { await api.post(projectPath(projectId, `runs/${runId}/tasks/${task.task_id}/answers`), { question_id: answer.id, revision_id: task.envelope.revision_id, value, unit: unit || null }); setAnswer(null); refresh(); } catch (reason) { setError(reason); } finally { setBusy(false); } }}><p>{answer.question}</p><ErrorNotice error={error} /><label className="field"><span>回答</span><textarea required value={value} onChange={event => setValue(event.target.value)} /></label><label className="field"><span>单位（可选）</span><input value={unit} onChange={event => setUnit(event.target.value)} /></label><div className="form-actions"><button type="button" className="button" onClick={() => setAnswer(null)}>取消</button><button className="button primary" disabled={busy}>提交回答</button></div></form></Modal>}</article>;
-}
-
-function EventPanel({ projectId }: { projectId: string }) {
-  const [events, setEvents] = useState<unknown[]>([]);
-  const [state, setState] = useState('正在连接');
-  const [retry, setRetry] = useState(0);
-  useEffect(() => {
-    setEvents([]); setState('正在连接');
-    const source = new EventSource(`/api/v1${projectPath(projectId, 'events')}`, { withCredentials: true });
-    source.onopen = () => setState('已连接');
-    source.onmessage = event => { try { const value: unknown = JSON.parse(event.data); setEvents(previous => [value, ...previous].slice(0, 30)); } catch { setEvents(previous => [{ text: event.data }, ...previous].slice(0, 30)); } };
-    source.onerror = () => { setState('连接中断，请重新连接'); source.close(); };
-    return () => source.close();
-  }, [projectId, retry]);
-  return <section className="panel events-panel"><div className="section-title"><h2>工程动态 <span className="muted">SSE</span></h2><div className="inline-actions"><small>{state}</small><button className="text-link" onClick={() => setRetry(value => value + 1)}>重新连接</button></div></div>{events.length ? <div className="event-log">{events.map((event, index) => <JsonView key={index} value={event} />)}</div> : <p className="muted">尚未收到事件。可使用“刷新状态”重新获取运行与任务事实。</p>}</section>;
 }

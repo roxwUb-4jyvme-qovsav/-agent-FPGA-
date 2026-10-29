@@ -12,6 +12,7 @@ from starlette.concurrency import run_in_threadpool
 
 from ..errors import ApiError
 from ..models import EventRecord, IdempotencyRecord, ResourceHistory, ResourceRecord, utcnow
+from ..request_context import request_id_context
 from ..security import authenticate, project_role, require_admin
 
 
@@ -84,6 +85,20 @@ def history(db, record: ResourceRecord) -> None:
     record.updated_at = utcnow()
 
 
+
+def lock_event_projects(db, project_ids) -> None:
+    if db.bind.dialect.name != "postgresql":
+        return
+    from sqlalchemy import text
+
+    held = db.info.setdefault("event_project_locks", set())
+    for project_id in sorted(set(project_ids) - held):
+        # 多项目事务在首次事件之前一次按统一顺序取锁；锁持有直到提交。
+        db.execute(text("SELECT pg_advisory_xact_lock(:key)"),
+                   {"key": -int(sha(["project-events", project_id])[:15], 16)})
+        held.add(project_id)
+
+
 def event(
     db,
     actor_id: str,
@@ -92,12 +107,31 @@ def event(
     project_id: str | None = None,
     payload=None,
 ) -> EventRecord:
+    scope = project_id or (record.project_id if record else None)
+    if scope:
+        lock_event_projects(db, [scope])
+    db.flush()
+    data = dict(payload or {})
+    request_id = data.get("request_id") or request_id_context.get()
+    if scope and record is None and data.get("task_id"):
+        from ..models import TaskRecord
+
+        task = db.get(TaskRecord, data["task_id"])
+        if task and task.project_id == scope:
+            record = db.get(ResourceRecord, task.run_id)
+    if scope and record and request_id:
+        # 冻结发生时的版本和请求标识；投递端不读取正文或未来版本填补历史。
+        data["_stream"] = {
+            "schema_version": "1.0", "project_id": scope, "type": kind,
+            "resource_id": record.id, "resource_version": record.version,
+            "occurred_at": iso(utcnow()), "request_id": request_id, "summary": kind,
+        }
     result = EventRecord(
-        project_id=project_id or (record.project_id if record else None),
+        project_id=scope,
         actor_id=actor_id,
         type=kind,
         resource_id=record.id if record else None,
-        payload=payload or {},
+        payload=data,
     )
     db.add(result)
     db.flush()
@@ -151,7 +185,7 @@ async def read(request: Request, operation: Callable):
 
 
 async def mutate(
-    request: Request, operation: Callable, *, key_required=True, authenticator=authenticate
+    request: Request, operation: Callable, *, key_required=True, authenticator=authenticate, preauthorize=None
 ):
     try:
         body = await request.json() if await request.body() else {}
@@ -161,6 +195,8 @@ async def mutate(
     def execute():
         with request.app.state.db.transaction() as db:
             user = authenticator(db, request, write=True)
+            if preauthorize is not None:
+                preauthorize(db, user, body)
             key = request.headers.get("idempotency-key", "")
             if key_required and (not key or len(key) > 200):
                 raise ApiError(400, "IDEMPOTENCY_KEY_REQUIRED", "POST 需要有效 Idempotency-Key")

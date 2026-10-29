@@ -49,7 +49,7 @@ def validate_references(db, kind, payload, project_id):
         raise ApiError(422, "INVALID_REFERENCE", "用户不存在")
 
 
-def create_record(db, user, kind, payload, project_id):
+def create_record(db, user, kind, payload, project_id, settings):
     validate_payload(CATALOG[kind]["payload_schema"], payload)
     authorize(db, user, kind, project_id, write=True)
     validate_references(db, kind, payload, project_id)
@@ -59,7 +59,7 @@ def create_record(db, user, kind, payload, project_id):
     if kind in ("runs", "device-sessions", "approvals", "changes"):
         from ..services.workflow import prepare_create
 
-        return prepare_create(db, user, kind, payload, project_id)
+        return prepare_create(db, user, kind, payload, project_id, settings)
     record = ResourceRecord(kind=kind, project_id=project_id, payload=payload)
     if kind == "users":
         user_record = User(
@@ -125,7 +125,7 @@ def register_collection(kind: str):
             return await mutate(
                 request,
                 lambda db, user, body: response(
-                    create_record(db, user, kind, body, project_id), 201
+                    create_record(db, user, kind, body, project_id, request.app.state.settings), 201
                 ),
             )
 
