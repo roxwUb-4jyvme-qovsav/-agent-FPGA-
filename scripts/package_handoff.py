@@ -11,8 +11,8 @@ from pathlib import Path, PurePosixPath
 
 
 def package(ref: str, output: Path) -> Path:
-    root = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip())
-    commit = subprocess.check_output(["git", "rev-parse", "--verify", ref + "^{commit}"], cwd=root, text=True).strip()
+    root = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True, encoding="utf-8").strip())
+    commit = subprocess.check_output(["git", "rev-parse", "--verify", ref + "^{commit}"], cwd=root, text=True, encoding="utf-8").strip()
     content = subprocess.check_output(["git", "archive", "--format=tar", commit], cwd=root)
     output.mkdir(parents=True, exist_ok=True)
     target = output / f"agent-FPGA-{commit[:7]}.zip"

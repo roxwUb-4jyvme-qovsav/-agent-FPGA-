@@ -41,3 +41,5 @@ Final: Ruling: PostgreSQL 实测、真实浏览器断网/登录竞争、84 项�
 4. Alembic、完整编排、独立 verifier 入库、Provider/EDA/CAD 和完整验收仍沿用既有缺项。未运行项保持 NOT_RUN。
 
 所有 mock/软件结果沿用原标签；没有硬件实测或真实付费调用。
+
+打包实际烟测发现 Windows 中文仓库路径被 subprocess 默认 GBK 解码而失败；已显式以 UTF-8 读取 Git 路径和提交输出，再次真实打包成功。最终源码包按其 source_commit 固定内容，包内 package_manifest.json 逐文件记录 SHA256，下载后可复核。
