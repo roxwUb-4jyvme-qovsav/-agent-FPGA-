@@ -1,14 +1,14 @@
 {
-  "source_commit": "2272a246ad4265269048e52960f41f07c1e57880",
-  "archive": "agent-FPGA-2272a24.zip",
-  "sha256": "ad420887114da46ff4c21f7f562040c6f4c693ebcf77c72a32aaf608e9a9fcac",
-  "files": 430,
+  "source_commit": "e3e8c374c970b80820ee716f56289fabd78d01d2",
+  "archive": "agent-FPGA-e3e8c37.zip",
+  "sha256": "f8de673a98c308c46b9f1816bdaddbe665d15687d18b0b66f7c501c08c7d61bc",
+  "files": 437,
   "manifest": "agent-FPGA/package_manifest.json",
   "hardware_test_status": "NOT_RUN",
-  "handoff": "docs/SSE-HANDOFF.md",
+  "handoff": "docs/WORKER-HANDOFF.md",
   "python_tests": {
-    "passed": 151,
+    "passed": 170,
     "skipped": 6
   },
-  "frontend_tests_passed": 24
+  "postgresql_tests_passed": 4
 }
