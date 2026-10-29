@@ -24,7 +24,7 @@ def target_digest(record):
     )
 
 
-def prepare_create(db, user, kind, payload, project_id):
+def prepare_create(db, user, kind, payload, project_id, settings):
     record = ResourceRecord(kind=kind, project_id=project_id, payload=payload, internal={})
     if kind == "approvals":
         target = db.get(ResourceRecord, payload["target_id"])
@@ -76,6 +76,9 @@ def prepare_create(db, user, kind, payload, project_id):
         if not revision.payload.get("contract_artifact_id"):
             raise ApiError(409, "CONTRACT_REQUIRED", "采集会话需要统一契约")
         record.state = "OPEN"
+        from .devices import initialize_device
+
+        initialize_device(db, settings, record)
     elif kind == "changes":
         record.state = "DRAFT"
     db.add(record)

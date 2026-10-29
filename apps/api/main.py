@@ -65,13 +65,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(auth.router)
     app.include_router(resources.router)
     # 可选功能在各自模块注册，避免入口与产品实现互相耦合。
-    from .routers import domain, files, jobs, system, workflow
+    from .routers import devices, domain, files, jobs, system, workflow
 
     app.include_router(system.router)
     app.include_router(files.router)
     app.include_router(workflow.router)
     app.include_router(jobs.router)
     app.include_router(domain.router)
+    app.include_router(devices.router)
     if settings.web_dist.is_dir():
         from fastapi.staticfiles import StaticFiles
 
