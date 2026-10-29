@@ -85,7 +85,6 @@ def history(db, record: ResourceRecord) -> None:
     record.updated_at = utcnow()
 
 
-
 def lock_event_projects(db, project_ids) -> None:
     if db.bind.dialect.name != "postgresql":
         return
@@ -94,8 +93,10 @@ def lock_event_projects(db, project_ids) -> None:
     held = db.info.setdefault("event_project_locks", set())
     for project_id in sorted(set(project_ids) - held):
         # 多项目事务在首次事件之前一次按统一顺序取锁；锁持有直到提交。
-        db.execute(text("SELECT pg_advisory_xact_lock(:key)"),
-                   {"key": -int(sha(["project-events", project_id])[:15], 16)})
+        db.execute(
+            text("SELECT pg_advisory_xact_lock(:key)"),
+            {"key": -int(sha(["project-events", project_id])[:15], 16)},
+        )
         held.add(project_id)
 
 
@@ -122,9 +123,14 @@ def event(
     if scope and record and request_id:
         # 冻结发生时的版本和请求标识；投递端不读取正文或未来版本填补历史。
         data["_stream"] = {
-            "schema_version": "1.0", "project_id": scope, "type": kind,
-            "resource_id": record.id, "resource_version": record.version,
-            "occurred_at": iso(utcnow()), "request_id": request_id, "summary": kind,
+            "schema_version": "1.0",
+            "project_id": scope,
+            "type": kind,
+            "resource_id": record.id,
+            "resource_version": record.version,
+            "occurred_at": iso(utcnow()),
+            "request_id": request_id,
+            "summary": kind,
         }
     result = EventRecord(
         project_id=scope,
@@ -142,9 +148,17 @@ def response(record: ResourceRecord, status=200) -> tuple[dict, int, dict]:
     return serialize(record), status, {"ETag": etag(record)}
 
 
-def authorize_cached_response(db, request, user, body) -> None:
+def authorize_cached_response(db, request, user, body, cached_response=None) -> None:
     """幂等记录保存历史响应，不保存旧权限；撤权必须立即影响重复请求。"""
     path = request.url.path.removeprefix("/api/v1")
+    if path == "/worker/jobs/claim" and cached_response and cached_response.get("job_id"):
+        from ..models import TaskRecord
+        from .service_identity import authorize_task
+
+        task = db.get(TaskRecord, cached_response["job_id"])
+        if task is None:
+            raise ApiError(404, "NOT_FOUND", "缓存中的任务已不存在")
+        authorize_task(user, task)
     if path.startswith("/admin/") or path.startswith("/system/users/"):
         require_admin(user)
     project_id = request.path_params.get("project_id")
@@ -185,7 +199,12 @@ async def read(request: Request, operation: Callable):
 
 
 async def mutate(
-    request: Request, operation: Callable, *, key_required=True, authenticator=authenticate, preauthorize=None
+    request: Request,
+    operation: Callable,
+    *,
+    key_required=True,
+    authenticator=authenticate,
+    preauthorize=None,
 ):
     try:
         body = await request.json() if await request.body() else {}
@@ -212,7 +231,7 @@ async def mutate(
                     )
                 existing = db.get(IdempotencyRecord, identity)
                 if existing:
-                    authorize_cached_response(db, request, user, body)
+                    authorize_cached_response(db, request, user, body, existing.response)
                     if existing.body_sha256 != request_hash:
                         raise ApiError(409, "IDEMPOTENCY_CONFLICT", "相同幂等键对应不同请求内容")
                     return JSONResponse(

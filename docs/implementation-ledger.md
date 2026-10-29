@@ -30,3 +30,10 @@ Ruling: 用户最新指令为交接并上传指定 GitHub，当前工作收口�
 2026-10-29 Worker 接续：工件与常驻静态循环已接线；PostgreSQL16.15 便携实例实际完成四项并发/事务测试。独立审阅3项Important已补红绿修复，明细及剩余限制见 WORKER-HANDOFF.md。
 
 Worker最终回归：170 passed/6 RTL skipped/1 warning，含4项真实PostgreSQL。临时数据库已停止，工作区ASCII映射已清理；无系统服务安装。静态检查、依赖检查、179条来源哈希通过；141/144原始操作已注册。
+
+2026-10-29 从 origin/main ef55699 接续，分支 codex/verification-evidence；完成服务身份范围、验收签名入库与有效性接线。逐项红绿、真实PostgreSQL验证和下一任务见 docs/VERIFICATION-HANDOFF.md。
+
+Ruling: 沿用指定目录与独立分支，不另建worktree；注册表启用后禁用旧共享令牌回退，未配置注册表仍仅保留静态本机Worker。
+Ruling: 没有真实隔离后端时不自动创建验收任务；register_assignment仅供可信调度侧，测试注入不计真实EDA验收。
+
+2026-10-29 本轮最终验证197 passed（含9项真实PostgreSQL、6项RTL），前端24 passed及类型/构建通过；独立审阅2项Important均以真实PG红绿修复，1项投影首次并发409的Minor保留后续处理。结果不代表84项P0完成。
