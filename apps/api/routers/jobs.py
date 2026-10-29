@@ -2,7 +2,7 @@
 
 import secrets
 from dataclasses import dataclass
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Request
 from sqlalchemy import select
@@ -37,6 +37,10 @@ def worker_auth(db, request, *, write=False):
     if not expected or not secrets.compare_digest(supplied, "Bearer " + expected):
         raise ApiError(401, "WORKER_UNAUTHORIZED", "Worker 服务凭据无效或尚未配置")
     return ServicePrincipal("worker:" + token_hash(expected)[:24])
+
+
+def deadline_elapsed(task) -> bool:
+    return aware(datetime.fromisoformat(task.envelope["deadline"].replace("Z", "+00:00"))) <= utcnow()
 
 
 def current_lease(db, job_id, body):
@@ -79,7 +83,11 @@ async def claim(request: Request):
         now = utcnow()
         expired = db.scalars(
             select(TaskRecord)
-            .where(TaskRecord.state.in_(("LEASED", "RUNNING")), TaskRecord.lease_expires_at < now)
+            .where(
+                TaskRecord.state.in_(("LEASED", "RUNNING"))
+                | ((TaskRecord.state == "CANCEL_REQUESTED") & (TaskRecord.capability == "contract.validate")),
+                TaskRecord.lease_expires_at < now,
+            )
             .order_by(TaskRecord.project_id, TaskRecord.id)
             .with_for_update(skip_locked=True)
         ).all()
@@ -96,7 +104,9 @@ async def claim(request: Request):
         # 先完成行锁选择，再按统一顺序取得整个事务的项目事件锁。
         # 否则“过期项目 B → 新领取项目 A”可能与另一 Worker 反序互等。
         lock_event_projects(db, {task.project_id for task in [*expired, *candidates]})
+        cancelled_recovery = set()
         for task in expired:
+            was_cancelled = task.state == "CANCEL_REQUESTED"
             task.state = "LOST"
             attempts = list(task.attempts)
             attempts[-1] = {**attempts[-1], "state": "LOST", "finished_at": iso(now)}
@@ -108,6 +118,15 @@ async def claim(request: Request):
                 project_id=task.project_id,
                 payload={"task_id": task.id},
             )
+            # 仅静态 JSON 检查可自动对账重领；它不执行外部程序，所有输出由 fence 隔离。
+            if task.capability == "contract.validate" and task.attempt < 10:
+                task.state = "QUEUED"
+                if was_cancelled:
+                    cancelled_recovery.add(task.id)
+                task.worker_id = task.lease_expires_at = None
+                if "contract.validate" in body["capabilities"]:
+                    candidates.append(task)
+
         task = None
         for candidate in candidates:
             run = get_resource(db, "runs", candidate.run_id, candidate.project_id)
@@ -121,7 +140,7 @@ async def claim(request: Request):
         task.attempt += 1
         task.fencing_token += 1
         task.worker_id, task.lease_expires_at = body["worker_id"], now + timedelta(seconds=60)
-        task.state = "LEASED"
+        task.state = "CANCEL_REQUESTED" if task.id in cancelled_recovery else "LEASED"
         task.envelope = {
             **task.envelope,
             "attempt": task.attempt,
@@ -161,6 +180,8 @@ async def heartbeat(request: Request, job_id: str):
     def operation(db, principal, body):
         validate_payload("JobHeartbeat", body)
         task = current_lease(db, job_id, body)
+        if deadline_elapsed(task) and task.state != "CANCEL_REQUESTED":
+            raise ApiError(409, "TASK_DEADLINE_EXCEEDED", "任务已超出绝对截止时间")
         task.lease_expires_at = utcnow() + timedelta(seconds=60)
         if task.state == "LEASED":
             task.state = "RUNNING"
@@ -195,7 +216,9 @@ async def complete(request: Request, job_id: str):
             refs.append(result["log_ref"])
         for ref in refs:
             artifact = get_resource(db, "artifacts", ref["id"], task.project_id)
-            if artifact.payload != ref or artifact.internal.get("task_id") != task.id:
+            if (artifact.payload != ref or artifact.internal.get("task_id") != task.id
+                    or artifact.internal.get("fencing_token") != task.fencing_token
+                    or artifact.internal.get("attempt") != task.attempt):
                 raise ApiError(422, "ARTIFACT_SCOPE_MISMATCH", "结果只能引用本任务受控上传工件")
         status = result["status"]
         if task.capability == "contract.validate":
@@ -208,6 +231,8 @@ async def complete(request: Request, job_id: str):
             raise ApiError(
                 409, "CANCELLATION_PENDING", "取消后的结果不能提升工件，须先确认进程已停止"
             )
+        if deadline_elapsed(task) and status not in ("timeout", "cancelled"):
+            raise ApiError(409, "TASK_DEADLINE_EXCEEDED", "截止时间后仅接受超时或取消诊断")
         task.result = result
         task.state = (
             "CANCELLED"

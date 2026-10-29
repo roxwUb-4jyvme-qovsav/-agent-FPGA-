@@ -185,7 +185,7 @@ async def read(request: Request, operation: Callable):
 
 
 async def mutate(
-    request: Request, operation: Callable, *, key_required=True, authenticator=authenticate
+    request: Request, operation: Callable, *, key_required=True, authenticator=authenticate, preauthorize=None
 ):
     try:
         body = await request.json() if await request.body() else {}
@@ -195,6 +195,8 @@ async def mutate(
     def execute():
         with request.app.state.db.transaction() as db:
             user = authenticator(db, request, write=True)
+            if preauthorize is not None:
+                preauthorize(db, user, body)
             key = request.headers.get("idempotency-key", "")
             if key_required and (not key or len(key) > 200):
                 raise ApiError(400, "IDEMPOTENCY_KEY_REQUIRED", "POST 需要有效 Idempotency-Key")

@@ -65,11 +65,16 @@ def store_artifact(
     return record
 
 
-def artifact_bytes(settings, record: ResourceRecord) -> bytes:
+def artifact_bytes(settings, record: ResourceRecord, *, max_bytes: int | None = None) -> bytes:
     digest = record.payload["sha256"]
     target = settings.data_dir / "objects" / digest[:2] / digest
     try:
-        content = target.read_bytes()
+        if max_bytes is not None and target.stat().st_size > max_bytes:
+            raise ApiError(413, "INPUT_TOO_LARGE", "静态输入超过允许大小")
+        with target.open("rb") as handle:
+            content = handle.read() if max_bytes is None else handle.read(max_bytes + 1)
+        if max_bytes is not None and len(content) > max_bytes:
+            raise ApiError(413, "INPUT_TOO_LARGE", "静态输入超过允许大小")
     except OSError:
         raise ApiError(503, "ARTIFACT_UNAVAILABLE", "工件文件缺失，请从备份恢复")
     if hashlib.sha256(content).hexdigest() != digest:

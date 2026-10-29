@@ -64,6 +64,10 @@ def resource_visible(db, user, record) -> bool:
     ).all()
     if not uploads:
         return True
+    # Worker 输出是项目工件，不继承上传进程的“私有文档上传者”身份。
+    if any(upload.job_id and record.internal.get("task_id") == upload.job_id
+           and record.internal.get("fencing_token") == upload.fencing_token for upload in uploads):
+        return True
     documents = db.scalars(
         select(ResourceRecord).where(
             ResourceRecord.kind == "documents", ResourceRecord.project_id == record.project_id
