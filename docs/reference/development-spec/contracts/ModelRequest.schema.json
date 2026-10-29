@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:ModelRequest:1.0",
+  "title": "ModelRequest",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "model_profile_version_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "system",
+              "user",
+              "assistant",
+              "tool"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "artifact_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+            }
+          }
+        },
+        "required": [
+          "role",
+          "content",
+          "artifact_refs"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "output_schema_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "max_output_tokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "budget_reservation_id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "model_profile_version_id",
+    "messages",
+    "output_schema_id",
+    "max_output_tokens",
+    "deadline",
+    "budget_reservation_id"
+  ],
+  "additionalProperties": false
+}

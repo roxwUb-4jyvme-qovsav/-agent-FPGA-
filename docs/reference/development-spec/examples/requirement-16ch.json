@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "project_id": "11111111-1111-4111-8111-111111111111",
+  "revision_id": "33333333-3333-4333-8333-333333333333",
+  "title": "16 通道仿真采集仪",
+  "goal": "先突发采集再上传",
+  "facts": [
+    {
+      "key": "channels",
+      "value": "16",
+      "unit": null,
+      "status": "proposed",
+      "source_refs": []
+    },
+    {
+      "key": "sample_rate",
+      "value": "10000000",
+      "unit": "Hz",
+      "status": "proposed",
+      "source_refs": []
+    }
+  ],
+  "questions": [],
+  "acceptance_ids": [
+    "AC-RTL-01",
+    "AC-RTL-02"
+  ],
+  "out_of_scope": [
+    "实板烧录",
+    "完整 PCB",
+    "连续实时 UART 上传"
+  ],
+  "approved_by": null,
+  "approved_at": null
+}

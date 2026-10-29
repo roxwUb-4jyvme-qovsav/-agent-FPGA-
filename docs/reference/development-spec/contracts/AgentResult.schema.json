@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:AgentResult:1.0",
+  "title": "AgentResult",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "needs_input",
+        "failed"
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:TaskQuestion:1.0"
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:Evidence:1.0"
+      }
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "input_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "actual_cost_cny": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "actual_cost_cny"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "revision_id",
+    "status",
+    "artifacts",
+    "questions",
+    "diagnostics",
+    "evidence",
+    "usage"
+  ],
+  "additionalProperties": false
+}

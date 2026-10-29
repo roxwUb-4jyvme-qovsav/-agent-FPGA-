@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DeviceReply:1.0",
+  "title": "DeviceReply",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "const": "get_caps"
+        },
+        "data": {
+          "$ref": "urn:fpga:contracts:DeviceCapabilities:1.0"
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "const": "status"
+        },
+        "data": {
+          "$ref": "urn:fpga:contracts:DeviceStatus:1.0"
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "const": "read_capture"
+        },
+        "data": {
+          "$ref": "urn:fpga:contracts:CaptureChunk:1.0"
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "const": "arm"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "capture_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4294967295
+            }
+          },
+          "required": [
+            "capture_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "const": "abort"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "capture_id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          },
+          "required": [
+            "capture_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "const": "set_config"
+        },
+        "data": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

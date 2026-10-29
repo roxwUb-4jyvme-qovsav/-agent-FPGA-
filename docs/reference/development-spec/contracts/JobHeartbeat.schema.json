@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:JobHeartbeat:1.0",
+  "title": "JobHeartbeat",
+  "type": "object",
+  "properties": {
+    "worker_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fencing_token": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "progress_message": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "worker_id",
+    "attempt",
+    "fencing_token",
+    "progress_message"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:ChangeRequest:1.0",
+  "title": "ChangeRequest",
+  "type": "object",
+  "properties": {
+    "parent_revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "original_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposed_requirement_artifact_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "requested_budget_cny": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+    }
+  },
+  "required": [
+    "parent_revision_id",
+    "original_text",
+    "proposed_requirement_artifact_id",
+    "requested_budget_cny"
+  ],
+  "additionalProperties": false
+}

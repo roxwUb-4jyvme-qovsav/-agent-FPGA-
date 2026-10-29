@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:Event:1.0",
+  "title": "Event",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resource_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "resource_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "project_id",
+    "type",
+    "resource_id",
+    "resource_version",
+    "occurred_at",
+    "request_id",
+    "summary"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:MemberInput:1.0",
+  "title": "MemberInput",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "developer",
+        "reviewer",
+        "viewer"
+      ]
+    }
+  },
+  "required": [
+    "user_id",
+    "role"
+  ],
+  "additionalProperties": false
+}

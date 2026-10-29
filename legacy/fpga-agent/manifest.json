@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "track": "rtl",
+  "release_status": "PUBLIC_DEVELOPMENT_PAIR_VALIDATED_OFFICIAL_GATES_OPEN",
+  "official_base_image": "fpgachina-rtlhls@sha256:a7cf627e11708e8a6dcd9de689ff934f7b450b79369ebc7bb0217e8b54d81e56",
+  "model": {
+    "name": "CodeV-R1-RL-Qwen-7B",
+    "source": "https://huggingface.co/zhuyaoyu/CodeV-R1-RL-Qwen-7B",
+    "revision": "286cf433f596f1b8525529c1163eb81c19425c22",
+    "quantization": "none",
+    "measured_vram_gb": 28.862951424,
+    "finetuned": false,
+    "finetune_weights_url": null,
+    "dtype": "bfloat16",
+    "identity_status": "PINNED_REVISION_METADATA_SMALL_FILES_AND_ALL_FOUR_WEIGHT_HASHES_VERIFIED",
+    "full_weight_hash_validation": "PASS_READONLY_20261025",
+    "memory_measurement_scope": "Device total used bytes sampled every 0.25 s in final public pair; process-exclusive and instantaneous peak UNKNOWN"
+  },
+  "context": {
+    "max_model_len": 32768,
+    "max_output_tokens": 4096,
+    "official_baseline_request_max_tokens": 16384,
+    "rope_scaling": null,
+    "actual_max_model_len": 32768,
+    "configuration_status": "SHARED_LIVE_SERVICE_AND_TOKENIZER_BOUND_IN_PUBLIC_PAIR"
+  },
+  "serving": {
+    "backend": "vllm",
+    "version": "0.27.1.dev5+gf46a9dfe2.d20260827",
+    "start_command": "./serve/start.sh",
+    "port": 8002,
+    "devices": 1,
+    "runtime_verification": "80 public direct shell entries completed on same resident service; this publication copy was not redeployed",
+    "api_start_command": "./serve/http.sh",
+    "privacy": {
+      "HF_HUB_DISABLE_TELEMETRY": 1,
+      "VLLM_NO_USAGE_STATS": 1,
+      "VLLM_DO_NOT_TRACK": 1,
+      "DO_NOT_TRACK": 1
+    }
+  },
+  "eda": {
+    "official_version": "2026.1",
+    "development_version": "2025.2",
+    "part": "xczu3eg-sbva484-1-e",
+    "clock_ns": 5,
+    "internal_precheck": {
+      "mode": "default synthesis",
+      "clock_constraints": "none",
+      "official_level_claim": false
+    },
+    "official_judge": {
+      "mode": "out_of_context",
+      "clock_ns": 5,
+      "validation_status": "NOT_RUN; public independent Vivado 2026.1 L1/L2/L3 passed for 40 Agent samples; not official hidden out-of-context judging"
+    }
+  },
+  "endpoints": {
+    "solve": "./run.sh",
+    "baseline": "./run_baseline.sh",
+    "http_port": 7860,
+    "health": "/v1/health",
+    "solve_http": "/v1/solve",
+    "jobs_http": "/v1/jobs/{job_id}",
+    "protocol": "asynchronous",
+    "solve_status_code": 202,
+    "nonce_idempotence": true
+  },
+  "agent": {
+    "version": "2.4",
+    "max_rounds": 3,
+    "tools": [
+      "check_interface",
+      "static_check",
+      "xvlog",
+      "xelab",
+      "xsim_selftest",
+      "synth_design"
+    ],
+    "skills": [
+      "rtl_generation_v4"
+    ]
+  },
+  "validation_status": "8_PUBLIC_TASKS_5_SAMPLES_AGENT_40_OF_40_BASELINE_25_OF_40",
+  "official_rules_commit": "fc8e26a5828b7222e9db439cee29128bcf4f8865",
+  "generation": {},
+  "auxiliary_models": [],
+  "budget": {
+    "official_request_deadline_s": 900,
+    "official_baseline_timeout_s": 840,
+    "agent_internal_wallclock_s": 300
+  },
+  "official_platform": {
+    "architecture": "gfx1100",
+    "gpu_family": "W7900",
+    "actual_device": "Verified AMD card at PCI 0000:43:00.0; physical counter card0, renderD130",
+    "physical_vram_gb": 48,
+    "scheme_vram_limit_gb": 32
+  },
+  "resource_policy": {
+    "limit_bytes": 32000000000,
+    "planned_reservation_ceiling_bytes": 30000000000,
+    "includes_existing_device_usage": true,
+    "physical_counter_index": "0; PCI 0000:43:00.0 verified",
+    "actual_inference_peak": "SAMPLED_ONLY_INSTANTANEOUS_PEAK_NOT_VERIFIED",
+    "no_automatic_running_service_restart": true,
+    "current_existing_service_compliance": "SAMPLED_BELOW_CAP_ON_NEW_FPGA_CHINA_INSTANCE",
+    "historical_prior_instance_observation": {
+      "observed_engine_resident_bytes": 43534532608,
+      "observed_mapped_device_used_bytes": 43701055488,
+      "current_existing_service_compliance": "FAIL_OVER_32000000000_BYTES"
+    },
+    "observed_sampled_max_bytes": 28862951424
+  },
+  "offline_validation": {
+    "business_network": "Scoped syscall restriction on model, HTTP service, descendants and independent evaluator; only local instance TCP and explicit official licensing allowed",
+    "telemetry_disabled": true,
+    "continuous_hundreds": "NOT_RUN",
+    "clean_image_rebuild": "NOT_RUN",
+    "official_sandbox_certification": "NOT_RUN",
+    "limitations": "Test-only trusted-program policy; not adversarial race-proof or filesystem isolation; do not package external evaluator/TB or supervision helpers into Agent."
+  },
+  "submission_rules_commit": "fc8e26a5828b7222e9db439cee29128bcf4f8865",
+  "public_development_validation": {
+    "tested_source_content_index_sha256": "1d679e99909a7694adddaf93e9ae2cf651f668747086efcdb8e756b2e961c52c",
+    "tasks": 8,
+    "samples_per_task": 5,
+    "Agent_full_L1_L2_L3": 40,
+    "Baseline_full_L1_L2_L3": 25,
+    "samples_per_arm": 40,
+    "Agent_model_calls": 65,
+    "Agent_repairs": 25,
+    "Agent_tokens": 83720,
+    "Baseline_model_calls": 40,
+    "Baseline_repairs": 0,
+    "Baseline_tokens": 18515,
+    "equal_budget": false,
+    "unseen_task_generalization": "NOT_VERIFIED",
+    "official_hidden_results": "NOT_RUN",
+    "summary": "docs/PUBLIC_VALIDATION.md",
+    "binding": "docs/SOURCE_BINDING.json"
+  },
+  "deployment_revision": {
+    "type": "DEPLOYMENT_ONLY_SCOPED_CPU_PASS",
+    "parent_commit": "4cba22f0da2848fce173d24687ea935d3b7e82bb",
+    "GPU_counter": "Explicit verified setting, otherwise unique exposed AMD render PCI matched against rocm-smi --showbus --json; ambiguity blocks startup",
+    "license": "Organizer-documented defaults in Docker ENV and shared shell profile; existing caller settings preserved",
+    "unchanged": "Agent algorithm, official Baseline, frozen Skill, model settings and budgets",
+    "rebuild": "Organizer fallback; no participant Docker build claimed",
+    "live_deployment": "NOT_RUN"
+  }
+}

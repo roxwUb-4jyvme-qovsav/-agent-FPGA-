@@ -1,0 +1,1351 @@
+{
+  "schema_version": "1.0",
+  "notice": "Test plan only; NOT_RUN is not a product test result.",
+  "test_count": 84,
+  "tests": [
+    {
+      "id": "AC-REQ-01",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "多模态来源定位",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "分别上传 PDF DOCX XLSX 图片",
+      "expected": "段落 页码 单元格或图框能回查原文；数字保留单位",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REQ-02",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "上传边界",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "上传超25MiB 文件或累计超100MiB",
+      "expected": "分别返回413；前端保留失败原因和已完成附件",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REQ-03",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "压缩包隔离",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "上传穿越路径 链接和高膨胀比 ZIP",
+      "expected": "拒绝解包；目标目录外无写入",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REQ-04",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "关键问题冻结",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "留一个采集模式关键问题未答后申请冻结",
+      "expected": "冻结被拒；回答并校验后可重新提交",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REQ-05",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "单位和链路冲突",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "要求16路10MHz通过115200实时连续上传",
+      "expected": "确定性计算160Mbit/s与92.16kbit/s并要求解决冲突",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REQ-06",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "公式与OCR未知",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "上传无缓存公式及模糊电压截图",
+      "expected": "不把公式当0；电压标待复核且可定位",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REQ-07",
+      "priority": "P0",
+      "owner": "C",
+      "section": "8",
+      "title": "任务附件与入库",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "同文件先任务使用 再请求发布知识库",
+      "expected": "第一次不进入长期索引；第二次需项目权限与审核",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-01",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "不可变基线",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "修改已经FROZEN的契约字段",
+      "expected": "拒绝原地更新；创建新revision且父版保留",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-02",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "16通道影响",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "提交channels8到16的变更并预览",
+      "expected": "RTL 缓存 协议 UI 图纸 BOM 报价和测试均在影响集合",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-03",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "证据失效",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "仅更改受依赖参数后请求复用旧PASS",
+      "expected": "返回STALE并说明输入哈希变化",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-04",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "合法复用",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "保持UART模块所有输入与环境不变",
+      "expected": "可引用原证据并保存复核链；当前系统冒烟仍执行",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-05",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "旧任务迟到",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "新revision开始后提交旧任务完成结果",
+      "expected": "旧结果归旧版；新版本状态和指针不改变",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-06",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "完整回退",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "新版本验证失败后选择旧发布版",
+      "expected": "契约 RTL 图纸 UI与证据整套切换；失败版保留",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-REV-07",
+      "priority": "P0",
+      "owner": "A",
+      "section": "10",
+      "title": "变更批准漂移",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "批准后再改变diff或预算",
+      "expected": "原批准无效；未执行新增动作",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-01",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "项目隔离",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "用项目A用户读取项目B资源 下载 搜索 日志",
+      "expected": "所有路径不可见且无元数据泄漏",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-02",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "幂等提交",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "同键同体重复Run；再同键异体",
+      "expected": "仅一个Run与预算预留；异体返回409",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-03",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "乐观并发",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "两个客户端用相同旧ETag更新",
+      "expected": "一方成功；另一方412且不覆盖",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-04",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "租约围栏",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "租约到期重新领取后提交旧token结果",
+      "expected": "409 STALE_LEASE；工件不提升",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-05",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "持久化恢复",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "运行中重启API 调度器和Worker",
+      "expected": "任务对账后恢复；无双重结算和重复发布",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-06",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "取消确认",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "运行长任务后取消并模拟Worker离线",
+      "expected": "确认前显示取消未确认；日志保留；不得假称已停止",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-07",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "事件重连",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "断开SSE并使用Last-Event-ID；再使用过期游标",
+      "expected": "去重补拉；过期410后快照同步",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-08",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "成员越权",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "developer尝试添加admin或变更项目成员",
+      "expected": "403；无成员变更记录",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-09",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "密钥隔离",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "读取配置 导出 日志 错误及浏览器存储",
+      "expected": "无真实Key；密钥读取仅元数据",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-10",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "备份恢复",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "维护模式恢复到空目录并重放删除记录",
+      "expected": "工件哈希 权限 配置与撤权正确；记录RPO/RTO",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-11",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "工件写入中断",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "上传半文件或哈希不匹配后请求下载",
+      "expected": "隔离状态不可用；无可信ArtifactRef",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-PLT-12",
+      "priority": "P0",
+      "owner": "A",
+      "section": "4至7和22",
+      "title": "独立证据签发",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "普通Worker或用户提交伪造PASS",
+      "expected": "拒绝；合法verifier且哈希匹配才能入证据库",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-01",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "正常真实调用",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "用已批准国产配置和非零预算执行小任务",
+      "expected": "记录服务请求ID 实际模型 usage 单价与费用状态",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-02",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "错误状态",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "用录制夹具返回空文本 截断 拒绝 非JSON 401",
+      "expected": "各状态正确分类；不提升候选成功",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-03",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "限流与超时",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "返回429和5xx后超过deadline",
+      "expected": "有限退避；总时限不重置；未知费用不填0",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-04",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "预算竞争",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "两个调用同时争用最后可用余额",
+      "expected": "原子预留；余额不为负；不得超上限",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-05",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "缺失usage",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "调用结束但服务端无usage",
+      "expected": "null与unknown显示；保守保留预留",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-06",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "配置快照",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "运行中换模型或插件绑定",
+      "expected": "当前运行仍用旧版本；新运行使用新配置",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-07",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "旧核隔离",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "并发两个项目通过新Runner调用",
+      "expected": "Provider 目录 审计和top配置不串线；旧链路未被改写",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-MDL-08",
+      "priority": "P0",
+      "owner": "A",
+      "section": "9",
+      "title": "国产和能力限制",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "为视觉任务绑定无视觉模型或未批准源",
+      "expected": "能力或策略拒绝，不静默替换模型",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-01",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "采样顺序和位宽",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "8路与16路分别输入独立已知序列",
+      "expected": "样本严格按时刻和通道打包；禁用位为0",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-02",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "首tick与分频",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "分别D10 D100后ARM并逐周期观察",
+      "expected": "首tick为k0+D；后续每D周期，无偏一",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-03",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "上升沿首样本",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "选择ch0与ch15在tick前后改变",
+      "expected": "仅定义的tick边沿触发；触发tick为样本0",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-04",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "深度边界",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "分别depth16与4096并继续输入",
+      "expected": "恰好depth个样本；无越界写和额外样本",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-05",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "复位与中止",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "采集中复位或同tick中止",
+      "expected": "复位最高优先；ABORT不再写同拍样本；旧ID失效",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-06",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "原子配置",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "发送带非法掩码或深度的SET_CONFIG",
+      "expected": "返回INVALID_CONFIG，所有旧配置保持",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-07",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "CRC和重同步",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "注入翻位 短帧 过长帧及负载同步字",
+      "expected": "无错误动作执行；后续合法帧正确恢复",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-08",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "重复ARM",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "丢失ARM响应后按同序号同内容重发",
+      "expected": "返回原capture_id，采集仅启动一次",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-09",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "序号冲突和回绕",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "同序号异内容；合法递增到65535再0",
+      "expected": "冲突返回9；回绕后的新请求正常",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-10",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "分包范围",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "8路1012样本 16路506样本及超限读取",
+      "expected": "上限合法；越界或超限RANGE；不静默截短",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-11",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "旧采集和能力",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "向8路设备发16位掩码并读旧capture_id",
+      "expected": "分别INVALID_CONFIG与STALE_CAPTURE",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-12",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "离线UART解码",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "已知8N1字节 含停止位错和欠采样",
+      "expected": "正确字节 样本位置 帧错及采样不足标记",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-13",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "三种故障修复",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "分别注入计数偏一 字节序错误 CRC覆盖错误",
+      "expected": "独立测试先失败；最多三轮修复；不得改验收",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-14",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "模式与导出",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "四种会话模式和CSV/二进制导出",
+      "expected": "模式持续可见；元数据 哈希 字节序和时间一致；未绑定实板阻断",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-RTL-15",
+      "priority": "P0",
+      "owner": "B",
+      "section": "11至14",
+      "title": "工具能力缺口",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "测试需要未支持的X/Z或厂商原语",
+      "expected": "INDETERMINATE或换适用仿真器；不能PASS",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-CAD-01",
+      "priority": "P0",
+      "owner": "B",
+      "section": "15",
+      "title": "源工程可编辑",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "生成8路与16路KiCad包后重开",
+      "expected": "固定版本可打开编辑，必要库完整",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-CAD-02",
+      "priority": "P0",
+      "owner": "B",
+      "section": "15",
+      "title": "网络独立检查",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "故意断一根线 短接两路或错一个pin",
+      "expected": "端点集合和连通性检查必须发现",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-CAD-03",
+      "priority": "P0",
+      "owner": "B",
+      "section": "15",
+      "title": "ERC与豁免",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "制造一条阻断ERC及一条已审核豁免",
+      "expected": "阻断失败；豁免绑定规则和版本不可全局忽略",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-CAD-04",
+      "priority": "P0",
+      "owner": "B",
+      "section": "15",
+      "title": "BOM与数量",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "核对8到16路后的原理图和BOM",
+      "expected": "位号 MPN 封装 DNP与数量一致",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-CAD-05",
+      "priority": "P0",
+      "owner": "B",
+      "section": "15",
+      "title": "未绑定标记",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "查看标题栏 预览 下载和说明",
+      "expected": "均显示参考未绑定不可直接接线；无虚构实板参数",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-CAD-06",
+      "priority": "P0",
+      "owner": "B",
+      "section": "15",
+      "title": "适配器替换",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "模拟候选第三方MCP不兼容",
+      "expected": "受控模板与CLI仍输出同等工件和校验结果",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-KB-01",
+      "priority": "P0",
+      "owner": "A",
+      "section": "17",
+      "title": "检索黄金集",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "运行至少30条人工标注样本",
+      "expected": "逐条记录召回 引用 数字与无答案；不伪造总分",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-KB-02",
+      "priority": "P0",
+      "owner": "A",
+      "section": "17",
+      "title": "撤权和删除",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "缓存命中后撤权或删除并重复各种查询",
+      "expected": "内部 外部 缓存与下载均不可读",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-KB-03",
+      "priority": "P0",
+      "owner": "A",
+      "section": "17",
+      "title": "外部API映射",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "登记受控外部源并映射字段",
+      "expected": "真实请求返回完整Evidence；定位缺失拒入可信引用",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-KB-04",
+      "priority": "P0",
+      "owner": "A",
+      "section": "17",
+      "title": "换向量模型",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "同维度换embedding模型后检索",
+      "expected": "新generation独立构建；不混用旧向量",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-KB-05",
+      "priority": "P0",
+      "owner": "A",
+      "section": "17",
+      "title": "资料发布与冲突",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "解析失败重试并发布两个冲突版本",
+      "expected": "失败可追踪；引用带版本；不平均冲突数值",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-QTE-01",
+      "priority": "P0",
+      "owner": "B",
+      "section": "16",
+      "title": "数量与阶梯",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "10台 每台3个 备料2 MOQ10 倍数10",
+      "expected": "采购40；单价1.5器件60；单订单运费10总70",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-QTE-02",
+      "priority": "P0",
+      "owner": "B",
+      "section": "16",
+      "title": "国内外比较",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "导入两个国内和一个海外同商品报价",
+      "expected": "保留原币 汇率 税运与时点；同口径才排序",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-QTE-03",
+      "priority": "P0",
+      "owner": "B",
+      "section": "16",
+      "title": "未知和缺价",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "缺库存 税 运费或任意BOM价格",
+      "expected": "标unknown与已知小计；不出虚假完整总价",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-QTE-04",
+      "priority": "P0",
+      "owner": "B",
+      "section": "16",
+      "title": "快照刷新",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "报价过期或来源暂时失败后刷新",
+      "expected": "新旧快照分离；旧快照stale；fixture不标实时",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-QTE-05",
+      "priority": "P0",
+      "owner": "B",
+      "section": "16",
+      "title": "同供应商合单",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "两条BOM共用同一订单运费",
+      "expected": "运费仅计一次；不同订单条件单独登记",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-QTE-06",
+      "priority": "P0",
+      "owner": "B",
+      "section": "16",
+      "title": "许可与格式",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "来源不许缓存；导入重复或乱序阶梯",
+      "expected": "遵守许可；非法阶梯拒绝且保留错误定位",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-01",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "模型管理生命周期",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "新增 编辑 测试 启用 绑定 升级 回退 导出 轮换",
+      "expected": "全部动作可操作；新旧配置与审计可追溯",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-02",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "MCP本机生命周期",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "自定义stdio发现 授权 测试 启停和版本回退",
+      "expected": "仅受控进程；工具Schema与实际能力一致",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-03",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "MCP远程连接",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "登记HTTP端点后模拟Schema变化与失联",
+      "expected": "阻断不兼容调用；只回滚连接配置不冒称远端回滚",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-04",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "知识源管理",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "新增源 映射 鉴权 测试 绑定 删除及重建",
+      "expected": "每项实际生效；撤权与密钥保护正确",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-05",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "Skills管理",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "本地包与固定Git版本导入 编辑 测试 发布 升级 回滚 卸载",
+      "expected": "完整流程可用；脚本不能越权；旧版本可追溯",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-06",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "插件目录与安装",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "新增目录 搜索 导入 配置 审批 绑定 启用和卸载",
+      "expected": "不能只展示静态市场；卸载默认保留历史",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-07",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "坏包和循环依赖",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "篡改哈希 同版本异内容或依赖环",
+      "expected": "全部拒绝；不执行安装脚本",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-08",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "权限扩大和撤信任",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "升级增加网络权限或撤销发布者信任",
+      "expected": "重新审批；阻断新调用；在途按政策取消",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-09",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "独立开发扩展",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "成员只按SDK编写新检索适配器",
+      "expected": "不改核心可注册；结果满足Evidence且经过网关授权",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-10",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "UI插件隔离",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "插件尝试读取主DOM Cookie或调用未授权动作",
+      "expected": "浏览器隔离和网关均拒绝",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-EXT-11",
+      "priority": "P0",
+      "owner": "A",
+      "section": "18和19",
+      "title": "迁移与回滚",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "插件声明不可逆数据迁移后回滚",
+      "expected": "先备份和兼容检查；不只切文件就称数据已恢复",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-GIT-01",
+      "priority": "P0",
+      "owner": "A",
+      "section": "20",
+      "title": "批准绑定diff",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "批准后改变diff或base SHA再发布",
+      "expected": "拒绝写入并要求新批准；无force push",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-GIT-02",
+      "priority": "P0",
+      "owner": "A",
+      "section": "20",
+      "title": "重复和恢复",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "提交成功后模拟超时并恢复",
+      "expected": "先查既有分支 提交 PR；不重复创建",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-GIT-03",
+      "priority": "P0",
+      "owner": "A",
+      "section": "20",
+      "title": "最小权限和撤销",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "无批准写入 主分支合并或撤销认证后调用",
+      "expected": "全部拒绝；不默认要求仓库管理或Secrets权限",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-E2E-01",
+      "priority": "P0",
+      "owner": "C",
+      "section": "23和24",
+      "title": "8路全流程",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "从不完整需求经确认到下载工程包",
+      "expected": "契约 RTL 参考图纸 上位机 独立证据和哈希齐全",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-E2E-02",
+      "priority": "P0",
+      "owner": "C",
+      "section": "23和24",
+      "title": "16路变更和失败回退",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "完成影响批准 重建 验证并注入新版本失败",
+      "expected": "受影响项更新；旧版完整可回放与恢复",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-E2E-03",
+      "priority": "P0",
+      "owner": "C",
+      "section": "23和24",
+      "title": "完整首版门禁",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "遗漏任意一个P0或保留INDETERMINATE",
+      "expected": "不能标完整首版；比赛构建公开缺项",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "AC-E2E-04",
+      "priority": "P0",
+      "owner": "C",
+      "section": "23和24",
+      "title": "本机冷启动和演示",
+      "preconditions": "已登记对应测试环境；涉及真实外部调用时另有有效凭证和额度",
+      "steps": "从干净用户配置按说明启动并完成小任务",
+      "expected": "前提明确 健康准确；无凭证泄露和隐藏公网依赖",
+      "evidence": [
+        "构建SHA和环境锁",
+        "实际操作日志或报告",
+        "输入输出哈希与截图（适用时）"
+      ],
+      "execution_status": "NOT_RUN"
+    }
+  ]
+}

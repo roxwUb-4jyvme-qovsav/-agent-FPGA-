@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:RunRequest:1.0",
+  "title": "RunRequest",
+  "type": "object",
+  "properties": {
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "simulate",
+        "change",
+        "deliver"
+      ]
+    },
+    "max_cost_cny": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$"
+    }
+  },
+  "required": [
+    "revision_id",
+    "mode",
+    "max_cost_cny"
+  ],
+  "additionalProperties": false
+}

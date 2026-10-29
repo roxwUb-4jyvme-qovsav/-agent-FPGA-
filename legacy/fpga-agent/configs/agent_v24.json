@@ -1,0 +1,11 @@
+{
+  "schema_version": 6,
+  "agent_version": "2.4",
+  "max_rounds": 3,
+  "max_total_tokens": 12000,
+  "max_wall_time_s": 300,
+  "max_eda_calls": 3,
+  "min_completion_tokens": 128,
+  "skill_path": "../skill/rtl_generation_v4.md",
+  "expected_skill_sha256": "d7cb45dae750ee0045fcff6343d7b14e15cb6c71836a93679c5c175b634c5ee2"
+}

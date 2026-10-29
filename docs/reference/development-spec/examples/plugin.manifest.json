@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "id": "example.knowledge",
+  "version": "1.0.0",
+  "kind": "knowledge",
+  "publisher": "team-example",
+  "license": "MIT",
+  "source_ref": "local-fixture-not-installed",
+  "payload_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "signature": null,
+  "engine_api": "1.0",
+  "entrypoint": "https://example.invalid/search",
+  "transport": "https_json",
+  "config_schema_path": "config.schema.json",
+  "permissions": [
+    {
+      "capability": "read_knowledge",
+      "scope": "bound_project",
+      "approval_required": false
+    }
+  ],
+  "dependencies": [],
+  "healthcheck": {
+    "method": "health",
+    "timeout_seconds": 5
+  },
+  "data_policy": {
+    "retention_days": 0,
+    "export_allowed": true,
+    "external_send": true
+  },
+  "migration_steps": []
+}

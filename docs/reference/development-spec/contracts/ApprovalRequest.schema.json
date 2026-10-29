@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:ApprovalRequest:1.0",
+  "title": "ApprovalRequest",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "freeze",
+        "apply_change",
+        "release",
+        "git_publish",
+        "enable_extension",
+        "external_send"
+      ]
+    },
+    "target_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "target_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "action",
+    "target_id",
+    "target_sha256",
+    "expires_at",
+    "reason"
+  ],
+  "additionalProperties": false
+}

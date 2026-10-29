@@ -1,0 +1,6 @@
+Local absolute workspace/runtime paths redacted for publication.
+command: ['C:\\Users\\19778\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe', '-X', 'utf8', '-B', 'tools/check_package.py']
+exit_code: 0
+
+{"status": "PASS_CPU_PACKAGE_CHECK", "runtime_hashes": 47, "python_syntax_files": 34, "model_calls": 0, "EDA_calls": 0, "official_acceptance": "NOT_RUN"}
+

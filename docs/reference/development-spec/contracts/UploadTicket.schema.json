@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:UploadTicket:1.0",
+  "title": "UploadTicket",
+  "type": "object",
+  "properties": {
+    "upload_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "put_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "upload_id",
+    "put_path",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}

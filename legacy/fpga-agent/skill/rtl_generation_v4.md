@@ -1,0 +1,12 @@
+# RTL generation skill v4
+
+- Return exactly one complete synthesizable Verilog/SystemVerilog implementation of the requested top module. Do not add prose, alternatives, a testbench, example usage, delays, `initial` blocks, or system tasks.
+- Match every port name, direction, width, signed qualifier, edge, reset polarity, reset timing, enable condition, and priority. For a synchronous reset, the clocked sensitivity list contains only the specified clock edge. Add a reset edge only when the specification explicitly says asynchronous reset.
+- Drive every bit of every output. Determine the mathematical result width before writing arithmetic. Explicitly zero-extend unsigned operands or sign-extend signed operands when the result includes a carry, borrow, sign, or overflow bit. Never connect a narrower intermediate to only part of a wider output.
+- Preserve signed semantics in declarations and expressions. Use `>>>` for arithmetic right shift and `>>` for logical right shift. Use `$signed`, `$unsigned`, explicit extension, and sized constants when mixed signedness or expression sizing could affect behavior.
+- Prefer compact indexing, slicing, concatenation, reduction, arithmetic, and bounded loops over repetitive truth tables or large `case` lists.
+- In combinational procedural logic, set defaults first and assign every output and next-state signal on every path. In clocked logic, use nonblocking assignments and implement reset and enable priorities literally.
+- A Moore output depends only on registered state; never assert it from an input-dependent transition condition. A Mealy output may depend on current state and current input. Check which timing the specification requests before coding.
+- For a fixed N-bit serial pattern detector, prefer an N-bit registered history window: on each sampling edge shift in the new bit, and derive the Moore detection output by comparing the registered window with the N-bit target pattern. This makes the output visible after the completing edge and preserves overlapping matches automatically. Reset the entire history window according to the stated reset semantics. Do not add a special post-match reset or discard useful suffix bits.
+- If an explicit FSM is required instead, give a complete match its own registered state and compute all fallback transitions from the longest suffix that is also a target prefix. Check every state/input transition, exact output cycle, and overlap before emitting code.
+- Produce complete code ending with `endmodule`.

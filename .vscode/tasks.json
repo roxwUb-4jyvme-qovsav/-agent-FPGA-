@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {"label": "后端测试", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["-m", "pytest", "-q"], "group": "test"},
+    {"label": "前端构建", "type": "shell", "command": "npm.cmd --prefix apps/web run build", "group": "build"},
+    {"label": "前端开发", "type": "shell", "command": "npm.cmd --prefix apps/web run dev"}
+  ]
+}

@@ -1,0 +1,295 @@
+{
+  "projects": {
+    "scope": "project",
+    "payload_schema": "ProjectInput",
+    "resource_schema": "ProjectsResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": []
+  },
+  "revisions": {
+    "scope": "project",
+    "payload_schema": "RevisionInput",
+    "resource_schema": "RevisionsResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": [
+      "validate",
+      "freeze",
+      "release",
+      "rollback"
+    ]
+  },
+  "runs": {
+    "scope": "project",
+    "payload_schema": "RunRequest",
+    "resource_schema": "RunsResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": [
+      "cancel",
+      "retry"
+    ]
+  },
+  "changes": {
+    "scope": "project",
+    "payload_schema": "ChangeRequest",
+    "resource_schema": "ChangesResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": [
+      "preview",
+      "apply",
+      "cancel"
+    ]
+  },
+  "approvals": {
+    "scope": "project",
+    "payload_schema": "ApprovalRequest",
+    "resource_schema": "ApprovalsResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": []
+  },
+  "collections": {
+    "scope": "project",
+    "payload_schema": "Collection",
+    "resource_schema": "CollectionsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "reindex",
+      "test",
+      "export"
+    ]
+  },
+  "documents": {
+    "scope": "project",
+    "payload_schema": "DocumentInput",
+    "resource_schema": "DocumentsResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "parse",
+      "retry",
+      "publish",
+      "revoke"
+    ]
+  },
+  "quotes": {
+    "scope": "project",
+    "payload_schema": "QuoteOffer",
+    "resource_schema": "QuotesResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": [
+      "refresh",
+      "compare",
+      "export"
+    ]
+  },
+  "bindings": {
+    "scope": "project",
+    "payload_schema": "Binding",
+    "resource_schema": "BindingsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "test",
+      "enable",
+      "disable"
+    ]
+  },
+  "members": {
+    "scope": "project",
+    "payload_schema": "MemberInput",
+    "resource_schema": "MembersResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": []
+  },
+  "device-sessions": {
+    "scope": "project",
+    "payload_schema": "DeviceSessionInput",
+    "resource_schema": "DeviceSessionsResource",
+    "create": true,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": [
+      "close"
+    ]
+  },
+  "artifacts": {
+    "scope": "project",
+    "payload_schema": "ArtifactRef",
+    "resource_schema": "ArtifactsResource",
+    "create": false,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": []
+  },
+  "evidence": {
+    "scope": "project",
+    "payload_schema": "VerificationEvidence",
+    "resource_schema": "EvidenceResource",
+    "create": false,
+    "replace_draft_only": false,
+    "delete_if_unreferenced": false,
+    "commands": []
+  },
+  "model-profiles": {
+    "scope": "admin",
+    "payload_schema": "ModelProfile",
+    "resource_schema": "ModelProfilesResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "test",
+      "enable",
+      "disable",
+      "rollback",
+      "export",
+      "import"
+    ]
+  },
+  "mcp-connections": {
+    "scope": "admin",
+    "payload_schema": "ConnectionConfig",
+    "resource_schema": "McpConnectionsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "discover",
+      "test",
+      "approve",
+      "enable",
+      "disable",
+      "rollback",
+      "start",
+      "stop",
+      "rotate"
+    ]
+  },
+  "knowledge-connections": {
+    "scope": "admin",
+    "payload_schema": "ConnectionConfig",
+    "resource_schema": "KnowledgeConnectionsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "test",
+      "approve",
+      "enable",
+      "disable",
+      "rollback",
+      "rotate"
+    ]
+  },
+  "quote-connections": {
+    "scope": "admin",
+    "payload_schema": "ConnectionConfig",
+    "resource_schema": "QuoteConnectionsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "test",
+      "approve",
+      "enable",
+      "disable",
+      "rollback",
+      "rotate"
+    ]
+  },
+  "extensions": {
+    "scope": "admin",
+    "payload_schema": "PluginManifest",
+    "resource_schema": "ExtensionsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "validate",
+      "test",
+      "trust",
+      "revoke",
+      "approve",
+      "enable",
+      "disable",
+      "rollback",
+      "uninstall",
+      "export"
+    ]
+  },
+  "skills": {
+    "scope": "admin",
+    "payload_schema": "SkillSpec",
+    "resource_schema": "SkillsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "validate",
+      "test",
+      "approve",
+      "enable",
+      "disable",
+      "rollback",
+      "uninstall",
+      "export"
+    ]
+  },
+  "registries": {
+    "scope": "admin",
+    "payload_schema": "ConnectionConfig",
+    "resource_schema": "RegistriesResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "test",
+      "refresh",
+      "trust",
+      "revoke",
+      "enable",
+      "disable"
+    ]
+  },
+  "budgets": {
+    "scope": "admin",
+    "payload_schema": "BudgetInput",
+    "resource_schema": "BudgetsResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "enable",
+      "disable"
+    ]
+  },
+  "users": {
+    "scope": "admin",
+    "payload_schema": "UserInput",
+    "resource_schema": "UsersResource",
+    "create": true,
+    "replace_draft_only": true,
+    "delete_if_unreferenced": true,
+    "commands": [
+      "enable",
+      "disable"
+    ]
+  }
+}

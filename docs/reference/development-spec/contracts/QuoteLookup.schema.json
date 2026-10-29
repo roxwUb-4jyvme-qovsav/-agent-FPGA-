@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:QuoteLookup:1.0",
+  "title": "QuoteLookup",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "manufacturer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mpn": {
+      "type": "string",
+      "minLength": 1
+    },
+    "package": {
+      "type": "string",
+      "minLength": 1
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "country_class": {
+      "type": "string",
+      "enum": [
+        "domestic",
+        "overseas"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "CNY",
+        "USD",
+        "EUR",
+        "HKD"
+      ]
+    },
+    "max_lead_days": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "manufacturer",
+    "mpn",
+    "package",
+    "quantity",
+    "country_class",
+    "currency",
+    "max_lead_days"
+  ],
+  "additionalProperties": false
+}

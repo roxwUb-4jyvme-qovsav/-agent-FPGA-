@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DocumentInput:1.0",
+  "title": "DocumentInput",
+  "type": "object",
+  "properties": {
+    "upload_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "collection_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "enum": [
+        "task_only",
+        "project_knowledge"
+      ]
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "external_send_allowed": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "upload_id",
+    "collection_id",
+    "scope",
+    "license",
+    "external_send_allowed"
+  ],
+  "additionalProperties": false
+}

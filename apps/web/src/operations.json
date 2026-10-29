@@ -1,0 +1,1034 @@
+{
+  "POST /auth/session": {
+    "schema": "Login",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /auth/session": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "DELETE /auth/session": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects": {
+    "schema": "ProjectInput",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "PATCH /projects/{project_id}": {
+    "schema": "ProjectPatch",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/revisions": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/revisions": {
+    "schema": "RevisionInput",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/revisions/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/revisions/{resource_id}/commands": {
+    "schema": "RevisionsResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/runs": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/runs": {
+    "schema": "RunRequest",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/runs/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/runs/{resource_id}/commands": {
+    "schema": "RunsResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/changes": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/changes": {
+    "schema": "ChangeRequest",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/changes/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/changes/{resource_id}/commands": {
+    "schema": "ChangesResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/approvals": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/approvals": {
+    "schema": "ApprovalRequest",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/approvals/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/approvals/{resource_id}/decision": {
+    "schema": "ApprovalDecision",
+    "roles": [
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/collections": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/collections": {
+    "schema": "Collection",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/collections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "PUT /projects/{project_id}/collections/{resource_id}": {
+    "schema": "Collection",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "DELETE /projects/{project_id}/collections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/collections/{resource_id}/commands": {
+    "schema": "CollectionsResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/documents": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/documents": {
+    "schema": "DocumentInput",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/documents/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "DELETE /projects/{project_id}/documents/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/documents/{resource_id}/commands": {
+    "schema": "DocumentsResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/quotes": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/quotes": {
+    "schema": "QuoteOffer",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/quotes/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/quotes/{resource_id}/commands": {
+    "schema": "QuotesResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/bindings": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/bindings": {
+    "schema": "Binding",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/bindings/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "PUT /projects/{project_id}/bindings/{resource_id}": {
+    "schema": "Binding",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "DELETE /projects/{project_id}/bindings/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/bindings/{resource_id}/commands": {
+    "schema": "BindingsResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/members": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/members": {
+    "schema": "MemberInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/members/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /projects/{project_id}/members/{resource_id}": {
+    "schema": "MemberInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /projects/{project_id}/members/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/device-sessions": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/device-sessions": {
+    "schema": "DeviceSessionInput",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/device-sessions/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/device-sessions/{resource_id}/commands": {
+    "schema": "DeviceSessionsResourceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/artifacts": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/artifacts/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/evidence": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/evidence/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /admin/model-profiles": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/model-profiles": {
+    "schema": "ModelProfile",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/model-profiles/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/model-profiles/{resource_id}": {
+    "schema": "ModelProfile",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/model-profiles/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/model-profiles/{resource_id}/commands": {
+    "schema": "ModelProfilesResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/mcp-connections": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/mcp-connections": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/mcp-connections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/mcp-connections/{resource_id}": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/mcp-connections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/mcp-connections/{resource_id}/commands": {
+    "schema": "McpConnectionsResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/knowledge-connections": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/knowledge-connections": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/knowledge-connections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/knowledge-connections/{resource_id}": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/knowledge-connections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/knowledge-connections/{resource_id}/commands": {
+    "schema": "KnowledgeConnectionsResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/quote-connections": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/quote-connections": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/quote-connections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/quote-connections/{resource_id}": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/quote-connections/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/quote-connections/{resource_id}/commands": {
+    "schema": "QuoteConnectionsResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/extensions": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/extensions": {
+    "schema": "PluginManifest",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/extensions/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/extensions/{resource_id}": {
+    "schema": "PluginManifest",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/extensions/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/extensions/{resource_id}/commands": {
+    "schema": "ExtensionsResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/skills": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/skills": {
+    "schema": "SkillSpec",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/skills/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/skills/{resource_id}": {
+    "schema": "SkillSpec",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/skills/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/skills/{resource_id}/commands": {
+    "schema": "SkillsResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/registries": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/registries": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/registries/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/registries/{resource_id}": {
+    "schema": "ConnectionConfig",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/registries/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/registries/{resource_id}/commands": {
+    "schema": "RegistriesResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/budgets": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/budgets": {
+    "schema": "BudgetInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/budgets/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/budgets/{resource_id}": {
+    "schema": "BudgetInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/budgets/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/budgets/{resource_id}/commands": {
+    "schema": "BudgetsResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/users": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/users": {
+    "schema": "UserInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/users/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/users/{resource_id}": {
+    "schema": "UserInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/users/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/users/{resource_id}/commands": {
+    "schema": "UsersResourceCommand",
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/secrets": {
+    "schema": "SecretInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "PUT /admin/secrets/{resource_id}": {
+    "schema": "SecretInput",
+    "roles": [
+      "admin"
+    ]
+  },
+  "GET /admin/secrets/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "DELETE /admin/secrets/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/clarifications/answers": {
+    "schema": "Answer",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/knowledge/search": {
+    "schema": "SearchRequest",
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/uploads": {
+    "schema": "UploadInit",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/uploads/{resource_id}/complete": {
+    "schema": "UploadComplete",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "PUT /projects/{project_id}/uploads/{resource_id}/content": {
+    "schema": null,
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/artifacts/{resource_id}/content": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/device-sessions/{resource_id}/device-commands": {
+    "schema": "DeviceCommand",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/events": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /health": {
+    "schema": null,
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /admin/audit": {
+    "schema": null,
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/backups": {
+    "schema": "BackupRequest",
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /admin/restores": {
+    "schema": "RestoreRequest",
+    "roles": [
+      "admin"
+    ]
+  },
+  "POST /worker/jobs/claim": {
+    "schema": "JobClaim",
+    "roles": [
+      "worker"
+    ]
+  },
+  "POST /worker/jobs/{job_id}/heartbeat": {
+    "schema": "JobHeartbeat",
+    "roles": [
+      "worker"
+    ]
+  },
+  "POST /worker/jobs/{job_id}/complete": {
+    "schema": "JobComplete",
+    "roles": [
+      "worker"
+    ]
+  },
+  "GET /worker/jobs/{job_id}/cancel-state": {
+    "schema": null,
+    "roles": [
+      "worker"
+    ]
+  },
+  "GET /projects/{project_id}/runs/{run_id}/snapshot": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/runs/{run_id}/tasks": {
+    "schema": null,
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/runs/{run_id}/tasks/{task_id}": {
+    "schema": null,
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /projects/{project_id}/runs/{run_id}/tasks/{task_id}/answers": {
+    "schema": "Answer",
+    "roles": [
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/device-sessions/{session_id}/commands/{command_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/device-sessions/{session_id}/captures": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "GET /projects/{project_id}/device-sessions/{session_id}/captures/{resource_id}": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  },
+  "POST /worker/jobs/{job_id}/uploads": {
+    "schema": "UploadInit",
+    "roles": [
+      "worker"
+    ]
+  },
+  "PUT /worker/jobs/{job_id}/uploads/{resource_id}/content": {
+    "schema": null,
+    "roles": [
+      "worker"
+    ]
+  },
+  "POST /worker/jobs/{job_id}/uploads/{resource_id}/complete": {
+    "schema": "UploadComplete",
+    "roles": [
+      "worker"
+    ]
+  },
+  "GET /worker/jobs/{job_id}/artifacts/{resource_id}/content": {
+    "schema": null,
+    "roles": [
+      "worker"
+    ]
+  },
+  "POST /verification/evidence": {
+    "schema": "VerificationEvidence",
+    "roles": [
+      "verifier"
+    ]
+  },
+  "GET /projects/{project_id}/evidence/{resource_id}/validity": {
+    "schema": null,
+    "roles": [
+      "viewer",
+      "developer",
+      "reviewer",
+      "admin"
+    ]
+  }
+}

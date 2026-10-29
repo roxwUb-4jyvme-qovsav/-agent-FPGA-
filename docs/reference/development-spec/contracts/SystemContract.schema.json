@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:SystemContract:1.0",
+  "title": "SystemContract",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "requirement_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "channels": {
+      "type": "integer",
+      "enum": [
+        8,
+        16
+      ]
+    },
+    "clock_hz": {
+      "const": 100000000
+    },
+    "sample_dividers": {
+      "const": [
+        10,
+        100
+      ]
+    },
+    "capture_depth": {
+      "const": 4096
+    },
+    "sample_bytes": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "trigger_modes": {
+      "const": [
+        "software",
+        "rising"
+      ]
+    },
+    "reset": {
+      "const": "synchronous_active_high"
+    },
+    "wire_protocol": {
+      "const": "capture/1.0"
+    },
+    "uart_baud": {
+      "const": 115200
+    },
+    "board_profile_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schematic_status": {
+      "type": "string",
+      "enum": [
+        "reference_unbound",
+        "bound_unreviewed",
+        "electrically_reviewed"
+      ]
+    },
+    "register_map_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "acceptance_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[:\\\\]).+$"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input_artifacts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "source_path",
+          "owner",
+          "input_artifacts"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "approved_by": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "approved_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "project_id",
+    "revision_id",
+    "requirement_sha256",
+    "channels",
+    "clock_hz",
+    "sample_dividers",
+    "capture_depth",
+    "sample_bytes",
+    "trigger_modes",
+    "reset",
+    "wire_protocol",
+    "uart_baud",
+    "board_profile_id",
+    "schematic_status",
+    "register_map_sha256",
+    "acceptance_sha256",
+    "modules",
+    "approved_by",
+    "approved_at"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "channels": {
+            "const": 8
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sample_bytes": {
+            "const": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "channels": {
+            "const": 16
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sample_bytes": {
+            "const": 2
+          }
+        }
+      }
+    }
+  ]
+}

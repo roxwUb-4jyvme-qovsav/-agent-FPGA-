@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:Evidence:1.0",
+  "title": "Evidence",
+  "type": "object",
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "source_uri": {
+      "type": "string",
+      "minLength": 1
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acl_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "source_id",
+    "source_uri",
+    "locator",
+    "content_sha256",
+    "retrieved_at",
+    "license",
+    "acl_scope",
+    "text"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:AuditEvent:1.0",
+  "title": "AuditEvent",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "audit_scope": {
+      "type": "string",
+      "enum": [
+        "project",
+        "system"
+      ]
+    },
+    "actor_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "target_version": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "sequence",
+    "project_id",
+    "audit_scope",
+    "actor_id",
+    "action",
+    "target_id",
+    "target_version",
+    "occurred_at",
+    "request_id",
+    "summary"
+  ],
+  "additionalProperties": false
+}

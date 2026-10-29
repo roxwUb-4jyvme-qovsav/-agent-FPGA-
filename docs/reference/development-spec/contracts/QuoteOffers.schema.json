@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:QuoteOffers:1.0",
+  "title": "QuoteOffers",
+  "type": "object",
+  "properties": {
+    "offers": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:fpga:contracts:QuoteOffer:1.0"
+      }
+    },
+    "partial": {
+      "type": "boolean"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "offers",
+    "partial",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

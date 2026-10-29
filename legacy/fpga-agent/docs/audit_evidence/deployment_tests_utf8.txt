@@ -1,0 +1,69 @@
+Local absolute workspace/runtime paths redacted for publication.
+command: ['C:\\Users\\19778\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe', '-X', 'utf8', '-B', '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_deployment_revision.py', '-v']
+exit_code: 1
+
+
+test_ambiguous_physical_match_is_rejected (test_deployment_revision.BindingTests.test_ambiguous_physical_match_is_rejected) ... ok
+test_auto_binding_is_inherited_by_memory_probe (test_deployment_revision.BindingTests.test_auto_binding_is_inherited_by_memory_probe) ... ok
+test_binding_lock_wait_is_bounded_by_original_timeout (test_deployment_revision.BindingTests.test_binding_lock_wait_is_bounded_by_original_timeout) ... ok
+test_binding_time_consumes_existing_memory_deadline (test_deployment_revision.BindingTests.test_binding_time_consumes_existing_memory_deadline) ... ok
+test_duplicate_counter_json_is_rejected (test_deployment_revision.BindingTests.test_duplicate_counter_json_is_rejected) ... ok
+test_explicit_verified_mapping_is_preserved_without_query (test_deployment_revision.BindingTests.test_explicit_verified_mapping_is_preserved_without_query) ... ok
+test_failed_bus_query_is_not_ready (test_deployment_revision.BindingTests.test_failed_bus_query_is_not_ready) ... ok
+test_hip_zero_alone_is_not_physical_proof (test_deployment_revision.BindingTests.test_hip_zero_alone_is_not_physical_proof) ... ok
+test_invalid_explicit_mapping_is_not_silently_replaced (test_deployment_revision.BindingTests.test_invalid_explicit_mapping_is_not_silently_replaced) ... ok
+test_malformed_bus_or_pci_is_rejected (test_deployment_revision.BindingTests.test_malformed_bus_or_pci_is_rejected) ... ok
+test_multidevice_or_unknown_visible_selector_abstains (test_deployment_revision.BindingTests.test_multidevice_or_unknown_visible_selector_abstains) ... ok
+test_multiple_pci_fields_are_rejected (test_deployment_revision.BindingTests.test_multiple_pci_fields_are_rejected) ... ok
+test_nonpositive_binding_budget_stops (test_deployment_revision.BindingTests.test_nonpositive_binding_budget_stops) ... ok
+test_only_documented_readonly_bus_query_is_used (test_deployment_revision.BindingTests.test_only_documented_readonly_bus_query_is_used) ... ok
+test_pci_binding_does_not_assume_hip_zero_or_render_number (test_deployment_revision.BindingTests.test_pci_binding_does_not_assume_hip_zero_or_render_number) ... ok
+test_pci_domain_normalization (test_deployment_revision.BindingTests.test_pci_domain_normalization) ... ok
+test_query_timeout_propagates_without_retry (test_deployment_revision.BindingTests.test_query_timeout_propagates_without_retry) ... ok
+test_real_readonly_metadata_shape (test_deployment_revision.BindingTests.test_real_readonly_metadata_shape) ... ok
+test_regular_file_cannot_impersonate_gpu (test_deployment_revision.BindingTests.test_regular_file_cannot_impersonate_gpu) ... ok
+test_unmatched_gpu_is_not_guessed (test_deployment_revision.BindingTests.test_unmatched_gpu_is_not_guessed) ... ok
+test_visible_discovery_requires_one_amd_character_device (test_deployment_revision.BindingTests.test_visible_discovery_requires_one_amd_character_device) ... ok
+test_core_agent_baseline_skill_budgets_and_api_are_byte_preserved (test_deployment_revision.PackagingTests.test_core_agent_baseline_skill_budgets_and_api_are_byte_preserved) ... FAIL
+test_official_base_is_pinned_and_license_survives_direct_fallback (test_deployment_revision.PackagingTests.test_official_base_is_pinned_and_license_survives_direct_fallback) ... ok
+test_operator_overrides_are_not_replaced (test_deployment_revision.PackagingTests.test_operator_overrides_are_not_replaced) ... FAIL
+test_profile_sets_documented_license_and_local_scratch (test_deployment_revision.PackagingTests.test_profile_sets_documented_license_and_local_scratch) ... FAIL
+test_report_is_anonymous_and_amd_notice_retained (test_deployment_revision.PackagingTests.test_report_is_anonymous_and_amd_notice_retained) ... ok
+
+======================================================================
+FAIL: test_core_agent_baseline_skill_budgets_and_api_are_byte_preserved (test_deployment_revision.PackagingTests.test_core_agent_baseline_skill_budgets_and_api_are_byte_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<snapshot>\tests\test_deployment_revision.py", line 160, in test_core_agent_baseline_skill_budgets_and_api_are_byte_preserved
+    self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),expected,name)
+AssertionError: '0c64708dee29ffcff2ccd2c7c2f6f718e5179190981ed9916cf05e8fe74bf0f2' != '01d6d1970278bcb5239e41549caef8493d909918b3fa51416af9a68c2ef9e444'
+- 0c64708dee29ffcff2ccd2c7c2f6f718e5179190981ed9916cf05e8fe74bf0f2
++ 01d6d1970278bcb5239e41549caef8493d909918b3fa51416af9a68c2ef9e444
+ : skill/README.md
+
+======================================================================
+FAIL: test_operator_overrides_are_not_replaced (test_deployment_revision.PackagingTests.test_operator_overrides_are_not_replaced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<snapshot>\tests\test_deployment_revision.py", line 145, in test_operator_overrides_are_not_replaced
+    fields=self._shell({'XILINXD_LICENSE_FILE':'MOCK_LOCAL_LICENSE','FLEXLM_TIMEOUT':'123','GPU_MEMORY_UTILIZATION':'0.55'})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<snapshot>\tests\test_deployment_revision.py", line 130, in _shell
+    self.assertTrue(bash.is_file(),'Existing Git Bash required; no skip')
+AssertionError: False is not true : Existing Git Bash required; no skip
+
+======================================================================
+FAIL: test_profile_sets_documented_license_and_local_scratch (test_deployment_revision.PackagingTests.test_profile_sets_documented_license_and_local_scratch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<snapshot>\tests\test_deployment_revision.py", line 141, in test_profile_sets_documented_license_and_local_scratch
+    fields=self._shell({})
+           ^^^^^^^^^^^^^^^
+  File "<snapshot>\tests\test_deployment_revision.py", line 130, in _shell
+    self.assertTrue(bash.is_file(),'Existing Git Bash required; no skip')
+AssertionError: False is not true : Existing Git Bash required; no skip
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.020s
+
+FAILED (failures=3)

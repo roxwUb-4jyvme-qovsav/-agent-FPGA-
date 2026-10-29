@@ -1,0 +1,404 @@
+{
+  "schema_version": "1.0",
+  "baseline_date": "2026-10-29",
+  "submission_date": "2026-11-10",
+  "timezone": "Asia/Shanghai",
+  "coding_people": 2,
+  "total_coding_person_days": [
+    29,
+    49
+  ],
+  "notice": "Estimates exclude external approvals. Shared work is counted once; C is not a third programmer.",
+  "work_packages": [
+    {
+      "id": "WP01",
+      "title": "平台运行与权限底座",
+      "owner": "A",
+      "coding_person_days": [
+        3,
+        5
+      ],
+      "depends_on": [],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T01",
+          "owner": "A",
+          "depends_on": [],
+          "deliverable": "仓库结构、配置模板、环境检测与固定依赖烟测",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T02",
+          "owner": "A",
+          "depends_on": [
+            "T01"
+          ],
+          "deliverable": "用户、项目ACL、会话、CSRF与凭证设施",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T03",
+          "owner": "A",
+          "depends_on": [
+            "T01"
+          ],
+          "deliverable": "工件原子写、哈希、数据库迁移和outbox",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T04",
+          "owner": "A",
+          "depends_on": [
+            "T02",
+            "T03"
+          ],
+          "deliverable": "持久化队列、租约、取消、恢复与备份",
+          "status": "NOT_STARTED"
+        }
+      ]
+    },
+    {
+      "id": "WP02",
+      "title": "模型编排与契约变更",
+      "owner": "A",
+      "coding_person_days": [
+        4,
+        7
+      ],
+      "depends_on": [
+        "WP01"
+      ],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T05",
+          "owner": "A",
+          "depends_on": [
+            "T03"
+          ],
+          "deliverable": "Schema、领域语义校验、类型生成及契约API",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T06",
+          "owner": "A",
+          "depends_on": [
+            "T02"
+          ],
+          "deliverable": "Provider错误映射、费用预留结算与真实小调用",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T07",
+          "owner": "A",
+          "depends_on": [
+            "T04",
+            "T05",
+            "T06"
+          ],
+          "deliverable": "ContextBuilder与Agent节点、需求澄清和批准",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T08",
+          "owner": "A",
+          "depends_on": [
+            "T07"
+          ],
+          "deliverable": "依赖DAG、变更预览、证据失效、重建和回滚",
+          "status": "NOT_STARTED"
+        }
+      ]
+    },
+    {
+      "id": "WP03",
+      "title": "完整管理与扩展生态",
+      "owner": "A",
+      "coding_person_days": [
+        7,
+        12
+      ],
+      "depends_on": [
+        "WP01"
+      ],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T09",
+          "owner": "A",
+          "depends_on": [
+            "T02",
+            "T03"
+          ],
+          "deliverable": "通用管理列表、详情、草案、版本、测试和审计",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T10",
+          "owner": "A",
+          "depends_on": [
+            "T09"
+          ],
+          "deliverable": "模型中心、MCP本机与远程连接、凭证和角色绑定",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T11",
+          "owner": "A",
+          "depends_on": [
+            "T09"
+          ],
+          "deliverable": "Skills和插件包、目录、信任、依赖锁与权限差异",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T12",
+          "owner": "A",
+          "depends_on": [
+            "T10",
+            "T11"
+          ],
+          "deliverable": "扩展SDK、外接适配合规与UI面板隔离",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T13",
+          "owner": "A",
+          "depends_on": [
+            "T08",
+            "T12"
+          ],
+          "deliverable": "GitHub差异、批准、发布去重和冲突处理",
+          "status": "NOT_STARTED"
+        }
+      ]
+    },
+    {
+      "id": "WP04",
+      "title": "RTL与独立验证",
+      "owner": "B",
+      "coding_person_days": [
+        4,
+        7
+      ],
+      "depends_on": [
+        "WP01"
+      ],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T14",
+          "owner": "B",
+          "depends_on": [
+            "T01"
+          ],
+          "deliverable": "EDA隔离烟测和固定工具组合",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T15",
+          "owner": "B",
+          "depends_on": [
+            "T05",
+            "T14"
+          ],
+          "deliverable": "新CodingRunner适配旧检查器与显式Provider",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T16",
+          "owner": "B",
+          "depends_on": [
+            "T05",
+            "T14"
+          ],
+          "deliverable": "独立参考模型、保护验收服务和证据签发",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T17",
+          "owner": "B",
+          "depends_on": [
+            "T15",
+            "T16"
+          ],
+          "deliverable": "采集核心、串口协议和8/16路边界验证",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T18",
+          "owner": "B",
+          "depends_on": [
+            "T17"
+          ],
+          "deliverable": "三类故障注入、有限修复与回归",
+          "status": "NOT_STARTED"
+        }
+      ]
+    },
+    {
+      "id": "WP05",
+      "title": "KiCad参考工程",
+      "owner": "B",
+      "coding_person_days": [
+        3,
+        5
+      ],
+      "depends_on": [
+        "WP01"
+      ],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T19",
+          "owner": "B",
+          "depends_on": [
+            "T01"
+          ],
+          "deliverable": "模板来源与审核、KiCad版本及库烟测",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T20",
+          "owner": "B",
+          "depends_on": [
+            "T05",
+            "T19"
+          ],
+          "deliverable": "ConnectionPlan实例化、网络表及端点比对",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T21",
+          "owner": "B",
+          "depends_on": [
+            "T20"
+          ],
+          "deliverable": "8/16路BOM、ERC、豁免、导出及包验证",
+          "status": "NOT_STARTED"
+        }
+      ]
+    },
+    {
+      "id": "WP06",
+      "title": "上位机知识与报价",
+      "owner": "A和B",
+      "coding_person_days": [
+        5,
+        8
+      ],
+      "depends_on": [
+        "WP01"
+      ],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T22",
+          "owner": "B",
+          "depends_on": [
+            "T05"
+          ],
+          "deliverable": "协议编解码、CSV/二进制和独立向量联调",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T23",
+          "owner": "A",
+          "depends_on": [
+            "T09",
+            "T22"
+          ],
+          "deliverable": "上位机会话、波形、模式、错误与UART解码界面",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T24",
+          "owner": "A",
+          "depends_on": [
+            "T03",
+            "T09"
+          ],
+          "deliverable": "多模态解析、内置检索、ACL、索引代际与外接源",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T25",
+          "owner": "B",
+          "depends_on": [
+            "T05"
+          ],
+          "deliverable": "报价导入、Decimal、阶梯合单、国内外比较和来源策略",
+          "status": "NOT_STARTED"
+        }
+      ]
+    },
+    {
+      "id": "WP07",
+      "title": "联调验收与比赛构建",
+      "owner": "A和B",
+      "coding_person_days": [
+        3,
+        5
+      ],
+      "depends_on": [
+        "WP02",
+        "WP03",
+        "WP04",
+        "WP05",
+        "WP06"
+      ],
+      "input": "本规格及上游冻结工件",
+      "output": "版本化源码、接口、配置、日志与验收证据",
+      "done_when": "关联P0通过并有交叉复核；真实接入状态单列",
+      "tasks": [
+        {
+          "id": "T26",
+          "owner": "A和B",
+          "depends_on": [
+            "T08",
+            "T12",
+            "T18",
+            "T21",
+            "T23",
+            "T24",
+            "T25"
+          ],
+          "deliverable": "8路闭环、16路变更、权限/恢复/生命周期回归",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T27",
+          "owner": "C",
+          "depends_on": [
+            "T26"
+          ],
+          "deliverable": "真实证据核对、对照实验、试用、缺项表及演示",
+          "status": "NOT_STARTED"
+        },
+        {
+          "id": "T28",
+          "owner": "A和B",
+          "depends_on": [
+            "T26",
+            "T27"
+          ],
+          "deliverable": "冷启动包、工程包、第三方声明、备份演练与阻断修复",
+          "status": "NOT_STARTED"
+        }
+      ]
+    }
+  ]
+}

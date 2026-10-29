@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:JobLease:1.0",
+  "title": "JobLease",
+  "type": "object",
+  "properties": {
+    "job_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "task": {
+      "anyOf": [
+        {
+          "$ref": "urn:fpga:contracts:TaskEnvelope:1.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lease_until": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "job_id",
+    "task",
+    "lease_until"
+  ],
+  "additionalProperties": false
+}

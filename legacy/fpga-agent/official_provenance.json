@@ -1,0 +1,11 @@
+{
+  "source_repository": "https://gitee.com/Vickyiii/rtlagent2026",
+  "source_commit": "51fbf8dc169bb320e6691c2ced34f331c2659ac0",
+  "copied_unmodified": {
+    "run.sh": "5add162f056871a19fcd2a8a820cf06d6ad7bab19db1c75cadad333cfefac346",
+    "run_baseline.sh": "5c46c40d32c0cf4c4e1dc52ae12e60f8396a0deccafaa4e6f69d7316a3482e75",
+    "baseline.py": "17aaa609d4dbd36a94d1390e39f769394448f8588f3ccdd2bd37db9e34ed05e2"
+  },
+  "run_sh_origin_commit": "afd135e7ba5f6ec4c6d77e7c927c894327537801",
+  "previous_source_commit": "9df176717fec16751d02f4fb5c67dbd40a22fc15"
+}

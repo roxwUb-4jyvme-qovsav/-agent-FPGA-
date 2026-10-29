@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "project_id": "11111111-1111-4111-8111-111111111111",
+  "revision_id": "33333333-3333-4333-8333-333333333333",
+  "requirement_sha256": "f57d9d856ba76a95e5f7491371ead84272df0760592b079db7b9c4cc9728d232",
+  "channels": 16,
+  "clock_hz": 100000000,
+  "sample_dividers": [
+    10,
+    100
+  ],
+  "capture_depth": 4096,
+  "sample_bytes": 2,
+  "trigger_modes": [
+    "software",
+    "rising"
+  ],
+  "reset": "synchronous_active_high",
+  "wire_protocol": "capture/1.0",
+  "uart_baud": 115200,
+  "board_profile_id": null,
+  "schematic_status": "reference_unbound",
+  "register_map_sha256": "defdc60f0d6f924b0e777fe6a47509a811d71fb5820cbba30eb3dd82ad2b5a92",
+  "acceptance_sha256": "97b809d63855347264fe3bd343aeba675aea2e35a4cb117dcb0feac2ca324596",
+  "modules": [
+    {
+      "name": "capture_top",
+      "source_path": "products/analyzer/rtl/capture_top.sv",
+      "owner": "rtl",
+      "input_artifacts": []
+    }
+  ],
+  "approved_by": null,
+  "approved_at": null
+}

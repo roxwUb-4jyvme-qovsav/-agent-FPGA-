@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:BackupRequest:1.0",
+  "title": "BackupRequest",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "reason"
+  ],
+  "additionalProperties": false
+}

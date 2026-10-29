@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:BoardProfile:1.0",
+  "title": "BoardProfile",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "virtual",
+        "physical"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "device_mpn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "package": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "clock_hz": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "clock_source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bank_voltages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bank": {
+            "type": "string",
+            "minLength": 1
+          },
+          "voltage_mv": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "bank",
+          "voltage_mv"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "pins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "signal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pin": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bank": {
+            "type": "string",
+            "minLength": 1
+          },
+          "io_standard": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "signal",
+          "pin",
+          "bank",
+          "io_standard"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "tool_profile_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "electrical_review_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "programming_allowed": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "kind",
+    "name",
+    "device_mpn",
+    "package",
+    "clock_hz",
+    "clock_source",
+    "bank_voltages",
+    "pins",
+    "source_refs",
+    "tool_profile_id",
+    "electrical_review_id",
+    "programming_allowed"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "virtual"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "programming_allowed": {
+            "const": false
+          },
+          "device_mpn": {
+            "type": "null"
+          },
+          "pins": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}

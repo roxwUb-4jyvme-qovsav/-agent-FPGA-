@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {"name": "工作台 PostgreSQL", "type": "debugpy", "request": "launch",
+     "module": "apps.api.cli", "cwd": "${workspaceFolder}", "envFile": "${workspaceFolder}/.env",
+     "console": "integratedTerminal", "justMyCode": true},
+    {"name": "工作台 SQLite 开发模式", "type": "debugpy", "request": "launch",
+     "module": "apps.api.cli", "args": ["--sqlite"], "cwd": "${workspaceFolder}",
+     "envFile": "${workspaceFolder}/.env", "console": "integratedTerminal", "justMyCode": true}
+  ]
+}

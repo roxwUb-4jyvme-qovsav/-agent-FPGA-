@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:DeviceCommandResult:1.0",
+  "title": "DeviceCommandResult",
+  "type": "object",
+  "properties": {
+    "command_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "reply": {
+      "anyOf": [
+        {
+          "$ref": "urn:fpga:contracts:DeviceReply:1.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "urn:fpga:contracts:ApiError:1.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "response_frame_hex": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^([0-9a-f]{2})+$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "capture_ref": {
+      "anyOf": [
+        {
+          "$ref": "urn:fpga:contracts:ArtifactRef:1.0"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "command_id",
+    "session_id",
+    "action",
+    "sequence",
+    "state",
+    "reply",
+    "error",
+    "response_frame_hex",
+    "capture_ref"
+  ],
+  "additionalProperties": false
+}

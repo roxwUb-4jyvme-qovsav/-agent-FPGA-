@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fpga:contracts:UploadComplete:1.0",
+  "title": "UploadComplete",
+  "type": "object",
+  "properties": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "sha256"
+  ],
+  "additionalProperties": false
+}

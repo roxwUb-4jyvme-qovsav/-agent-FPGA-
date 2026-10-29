@@ -1,0 +1,42 @@
+{
+  "repository": "zhuyaoyu/CodeV-R1-RL-Qwen-7B",
+  "revision": "286cf433f596f1b8525529c1163eb81c19425c22",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 729,
+      "sha256": "675d74a3cfe3c7940f1815e171414756520b490193f26d93353182d78413b8aa"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "bytes": 7362,
+      "sha256": "459b8b85d5068661c69fe0fe391b42be728abc9eb62d44c9467dc06d88f8c93e"
+    },
+    {
+      "name": "model.safetensors.index.json",
+      "bytes": 27752,
+      "sha256": "cb9182981c02c7e24bb6d00666488dcdd12de964ecd373b0700a5b863584314d"
+    },
+    {
+      "name": "model-00001-of-00004.safetensors",
+      "bytes": 4921754072,
+      "sha256": "35e47b1b01a242ae0493516757365a5d848e905887fab67235fcb431bb22bba0"
+    },
+    {
+      "name": "model-00002-of-00004.safetensors",
+      "bytes": 4870285008,
+      "sha256": "bcb1723b0be35fdfe19cfdffd5513573a5d378dff91bcc2dc691243a75fefa39"
+    },
+    {
+      "name": "model-00003-of-00004.safetensors",
+      "bytes": 4885043856,
+      "sha256": "d9b4427736f1f3a480c91b1f47dbc490d07cd57da7804034c3156db528430f7b"
+    },
+    {
+      "name": "model-00004-of-00004.safetensors",
+      "bytes": 554188944,
+      "sha256": "90cfbc3bbb5b6666af4e30afe31b6ab00847d30060ba1cf226679e76f78bb911"
+    }
+  ],
+  "source": "Public pinned Hugging Face revision API; no weights in Git."
+}

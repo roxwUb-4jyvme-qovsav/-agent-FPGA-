@@ -1,0 +1,3 @@
+# Preserve frozen file bytes and SHA256 through Git checkout on every platform.
+# Imported shell files are already LF; do not silently normalize any source.
+* -text
