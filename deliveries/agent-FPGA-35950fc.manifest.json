@@ -1,0 +1,8 @@
+{
+  "source_commit": "35950fc650c47e86f8565dae7e306861b0b265a2",
+  "archive": "agent-FPGA-35950fc.zip",
+  "sha256": "a5706645c6eaf9d09d679bc45670fe052087b528d1c164aeb72da08ae3445a09",
+  "handoff": "docs/CONTINUATION-2026-10-29.md",
+  "hardware_test_status": "NOT_RUN",
+  "independent_review": "NOT_RUN_USAGE_LIMIT"
+}
